@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1006201080017",
+    "project_id": "gupsmileproject",
+    "storage_bucket": "gupsmileproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006201080017:android:74aa8e74b14696ad769df0",
+        "android_client_info": {
+          "package_name": "gupsmile.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFetf0lWaVuKL_4-Nm8OgfVOFLclnPVyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

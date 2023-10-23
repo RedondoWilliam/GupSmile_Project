@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">GupsMile</string>
+
+
+    --navigation Up options Home Screen
+    <string name="post">Post</string>
+    <string name="my_reviews">Mis reseñas</string>
+    <string name="resources">Recursos</string>
+    <string name="your_people">tu gente</string>
+    
+    --profile screen screen info--
+    <string name="phone">Teléfono</string>
+    <string name="email">Correo</string>
+    <string name="adress">Residencia</string>
+
+    --profile screen navigation sections--
+    <string name="contact_information">Información de contacto</string>
+    <string name="reviews">Reseñas</string>
+    <string name="photos">Fotos</string>
+    <string name="videos">Videos</string>
+
+    --login Screen--
+    <string name="phone_and_email">Correo/teléfono</string>
+    <string name="password">Contraseña</string>
+    <string name="login_bottom">iniciar sesión</string>
+    <string name="title_app_login">GupSmile</string>
+    <string name="forgot_my_password">Olvidé mi contraseña</string>
+    <string name="register_new_user">¿No tienes una cuenta? Registrate</string>
+    <string name="login_google_bottom">Continuar con Google</string>
+    <string name="login_visitor_bottom">Continuar como invitado</string>
+
+    --TopAppMenu elements--
+    <string name="exit_out_account">cerrar sesión</string>
+    <string name="titleAlertDialogMenu">Cerrar sesión</string>
+    <string name="confirmBottomText">Aceptar</string>
+    <string name="dimmissBottomText">Cancelar</string>
+
+    --name Items DropDownMenuItem ProfileScreen--
+    <string name="suggest_app">Sugerencias para la App</string>
+    <string name="friends_item">Amigos</string>
+    <string name="family_item">Familia</string>
+    <string name="activity_item">Actividad</string>
+    <string name="shares_item">Elementos compartidos</string>
+    <string name="settings_items">Configuraciones</string>
+    <string name="private_item">Privacidad</string>
+    <string name="saved_items">Elementos guardados</string>
+    <string name="update_item">Actualizar</string>
+    <string name="change_account">Cambiar de cuenta</string>
+    <string name="log_out_item">Cerrar sesión</string>
+
+
+    --RegisterNewUserScreen Elements--
+    <string name="title_register_new_user">Crear nueva cuenta de usuario</string>
+    <string name="email_register_new_user">Correo electrónico</string>
+    <string name="email_textfield_register_new_user">Ingresa tu correo electrónico</string>
+    <string name="password_register_new_user">Contraseña</string>
+    <string name="password_textfield_register_new_user">Ingresa tu contraseña</string>
+    <string name="password_textfield_confirm_register_new_user">Confirma tu contraseña</string>
+    <string name="create_account_bottom_register_new_user">Crear cuenta</string>
+    <string name="exist_account_login_register_new_user">¿Ya tienes una cuenta? Inicia sesión</string>
+
+    --RetrievePasswordScreen Elements
+    <string name="title_retrieve_password">Recuperación de contraseña</string>
+    <string name="subtitle_retrieve_password">Recuperación por correo electrónico</string>
+    <string name="email_textfield__retrieve_password">Ingresa tu correo</string>
+    <string name="send_email_bottom_retrieve_password">enviar mensaje</string>
+
+    --RetrievePassoword AlertDialog elements--
+    <string name="title_alert_dialog_retrieve_password_alert_dialog">
+        Se ha enviado un correo para recuperación de contraseña a:
+    </string>
+    <string name="title_alert_dialog_retrieve_password_alert_dialog_two">
+        william.redondo09@gmail.com
+    </string>
+    <string name="title_alert_dialog_retrieve_password_alert_dialog_three">
+        Revisa tu bandeja de Email.
+    </string>
+    <string name="name_bottom_alert_dialog_retrieve_password_alert_dialog">Aceptar</string>
+
+    --alertDialog Create New Account--
+    <string name="succes_create_account_alert_dialog">Cuenta creada exitosamente</string>
+    <string name="warning_error_crate_new_account">Ups! Algo salió mal, vuelve a intentar </string>
+    <string name="name_action_bottom_warning_error_crate_new_account">volver</string>
+
+
+
+
+
+    --temporal
+    <string name="name_user">Lucia Hernández</string>
+</resources>
