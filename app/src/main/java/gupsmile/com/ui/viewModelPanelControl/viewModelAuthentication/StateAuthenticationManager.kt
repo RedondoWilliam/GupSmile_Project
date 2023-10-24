@@ -13,6 +13,7 @@ data class StateAuthenticationManager(
     var stateAuthentication: StateAuthentication = UNSPECIFY,
     var stateRegisterNewUser: RegisterNewUser = RegisterNewUser.UNSPECIFY,
     var typeErrorRegisterNewUser: String = "",
+    var equalsPasswordsRegisterNewUser: StateEqualsPasswordRegisterNewUser = StateEqualsPasswordRegisterNewUser.UNDIFINE,
 
 
     /**
@@ -34,5 +35,13 @@ data class StateAuthenticationManager(
 
     var proofViewModelus: String = "esto es una prueba",
 
-    var stateCurrentUser: StateCurrentUser = StateCurrentUser.NULE
+    var stateCurrentUser: StateCurrentUser = StateCurrentUser.NULE,
+
+    /**
+     * Login as visitor elements
+     * */
+
+    var stateLoginAsVisitor: StateLoginAsVisitor = StateLoginAsVisitor.UNSPECIFIED,
+    var errorLoginAsVisitor: String = ""
+
 )

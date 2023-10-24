@@ -58,6 +58,8 @@
     <string name="password_textfield_confirm_register_new_user">Confirma tu contraseña</string>
     <string name="create_account_bottom_register_new_user">Crear cuenta</string>
     <string name="exist_account_login_register_new_user">¿Ya tienes una cuenta? Inicia sesión</string>
+    <string name="confirm_equals_passwords_register_new_user">Ups! Tus contraseñas no coinciden.</string>
+
 
     --RetrievePasswordScreen Elements
     <string name="title_retrieve_password">Recuperación de contraseña</string>

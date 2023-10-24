@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,6 +45,8 @@ fun RetrievePasswordScreen(
 ){
 
     val columnStateRegisterNewUser = rememberScrollState()
+    var focusRequester: FocusRequester = remember{FocusRequester()}
+    val focusManager = LocalFocusManager.current
 
     Box {
         Column(
@@ -79,7 +82,7 @@ fun RetrievePasswordScreen(
                 ontextchage = { onTextChange(it) },
                 onCloseClicked = { /*TODO*/ },
                 onSearchClicked = {},
-                focusRequester = FocusRequester(),
+                focusRequester = focusRequester,
             )
             Spacer(modifier = modifier.height(22.dp))
 
@@ -89,7 +92,10 @@ fun RetrievePasswordScreen(
                 horizontalArrangement = Arrangement.Center
             ) {
                 BottomItemDesignFixed(
-                    bottomActions = {bottomAction()},
+                    bottomActions = {
+                        focusManager.clearFocus()
+                        bottomAction()
+                                    },
                     padddingStart = 5.dp,
                     paddingEnd = 5.dp,
                     widthFixed = 176.dp,

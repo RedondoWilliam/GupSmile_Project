@@ -1,6 +1,8 @@
 package gupsmile.com.ui.settingScreens.retrievePasswordScreen.retrievePasswordScreenPanelControl
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -8,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -16,6 +19,7 @@ import gupsmile.com.R
 import gupsmile.com.data.firebaseManager.AnalitycsManager
 import gupsmile.com.data.firebaseManager.AuthManager
 import gupsmile.com.model.AuthRes
+import gupsmile.com.ui.commonElements.DialogLoading
 import gupsmile.com.ui.commonElements.LogOutDialogMenu
 import gupsmile.com.ui.navigationApp.RoutesMainScreens
 import gupsmile.com.ui.settingScreens.registerNewUserScreen.registerNewUserScreenElements.AlertDialogConfirmCreateAccount
@@ -54,24 +58,35 @@ fun RetrievePasswordScreenPanelControl(
     }
 
 
-    RetrievePasswordScreen(
-        bottomAction = {
-           viewModelAuthentication.retrievePassword()
-        },
-        arrowBackBottom = {
-            arrowBackAction()
-        },
-        onTextChange = {
-            viewModelAuthentication.updateEmailRetrievePassword(newValue = it)
-        },
-        email = authenticationUiState.emailRetrievePassword
-    )
+   Box(
+       modifier = modifier.fillMaxSize(),
+       contentAlignment = Alignment.Center
+   ) {
+       RetrievePasswordScreen(
+           bottomAction = {
+               viewModelAuthentication.retrievePassword()
+           },
+           arrowBackBottom = {
+               arrowBackAction()
+           },
+           onTextChange = {
+               viewModelAuthentication.updateEmailRetrievePassword(newValue = it)
+           },
+           email = authenticationUiState.emailRetrievePassword
+       )
+
+       if(authenticationUiState.stateRetrievePassoword == StateRetrievePassoword.LOADING){
+           DialogLoading()
+       }
+
+   }
 
     when(authenticationUiState.stateRetrievePassoword ){
         StateRetrievePassoword.SUCCESS -> {showDialog = true}
         StateRetrievePassoword.ERROR -> {showDialog = true}
         StateRetrievePassoword.UNSPECIFY -> {}
         StateRetrievePassoword.SPACEEMPTY -> {showDialog = true}
+        StateRetrievePassoword.LOADING -> {}
     }
 
     if (

@@ -11,6 +11,13 @@ enum class RegisterNewUser{
     ERROR,
     SPACEEMPTY,
     UNSPECIFY,
+    LOADING
+}
+
+enum class StateEqualsPasswordRegisterNewUser{
+    EQUALS,
+    UNEQUALS,
+    UNDIFINE
 }
 
 
@@ -19,13 +26,15 @@ enum class StateSignInUser{
     ERROR,
     UNSPECIFY,
     SPACEEMPTY,
+    LOADING
 }
 
 enum class StateRetrievePassoword{
     SUCCESS,
     ERROR,
     UNSPECIFY,
-    SPACEEMPTY
+    SPACEEMPTY,
+    LOADING
 }
 
 
@@ -34,4 +43,10 @@ enum class StateCurrentUser{
     ACTIVE
 }
 
+enum class StateLoginAsVisitor{
+    SUCCESS,
+    ERROR,
+    UNSPECIFIED,
+    LOADING
+}
 

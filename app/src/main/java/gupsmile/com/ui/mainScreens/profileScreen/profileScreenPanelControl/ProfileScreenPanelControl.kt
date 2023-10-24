@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +38,7 @@ import gupsmile.com.ui.mainScreens.profileScreen.profileScreenElements.profileSu
 import gupsmile.com.ui.navigationApp.RoutesMainScreens
 import gupsmile.com.ui.theme.GupsMileTheme
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateCurrentUser
+import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginAsVisitor
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
 
 @Composable
@@ -49,6 +51,8 @@ fun ProfileScreenPanelControl(
 ){
     analytics?.logScreenView(screenName = RoutesMainScreens.ProfileScreen.route)
 
+
+    val authenticationUiState = viewModelAuthentication?.uiState?.collectAsState()?.value
 
     var expanded by remember { mutableStateOf(false) }
     var showDialog by remember{ mutableStateOf(false) }
@@ -67,19 +71,15 @@ fun ProfileScreenPanelControl(
     val onLogOutConfirmed: () -> Unit = {
         viewModelAuthentication?.signOutCurrentUser()
         viewModelAuthentication?.updateStateCurrentUser(newValue = StateCurrentUser.NULE)
+        if(authenticationUiState?.stateLoginAsVisitor == StateLoginAsVisitor.SUCCESS){
+            viewModelAuthentication.resetStateLoginAsVisitor()
+        }
         showDialog = false
         navController.navigate(RoutesMainScreens.LoginScreen.route){
             popUpTo(RoutesMainScreens.ProfileScreen.route){
                 this.inclusive = true
             }
         }
-//        auth?.signOut()
-//        navController.navigate(RoutesMainScreens.LoginScreen.route) {
-//            popUpTo(RoutesMainScreens.ProfileScreen.route) {
-//                inclusive = true
-//            }
-//        }
-
     }
 
     Box {

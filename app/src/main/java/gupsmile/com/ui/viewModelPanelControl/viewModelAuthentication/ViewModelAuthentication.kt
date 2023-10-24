@@ -13,6 +13,7 @@ import gupsmile.com.data.MyModule
 import gupsmile.com.data.firebaseManager.AnalitycsManager
 import gupsmile.com.data.firebaseManager.AuthManager
 import gupsmile.com.model.AuthRes
+import gupsmile.com.ui.navigationApp.RoutesMainScreens
 import kotlinx.coroutines.async
 //import gupsmile.com.firebaseManager.AuthRes
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,19 +28,31 @@ class ViewModelAuthentication @Inject constructor(
     private val auth: AuthManager
     ): ViewModel() {
 
-
-
-
-//    val auth: AuthManager = AuthManager()
-
     private val _uiState = MutableStateFlow(StateAuthenticationManager())
     val uiState: StateFlow<StateAuthenticationManager> = _uiState
 
 
 
     /**
-     * Authentication Control elements ->
+     * Register NewUser Control elements ->
      * */
+
+
+    fun updateStateRegisterNewUser(newValue: RegisterNewUser){
+        _uiState.update {
+            it.copy(
+                stateRegisterNewUser = newValue
+            )
+        }
+    }
+
+    fun updateStateEqualsPasswordRegisterNewUser(newValue: StateEqualsPasswordRegisterNewUser){
+        _uiState.update {
+            it.copy(
+                equalsPasswordsRegisterNewUser = newValue
+            )
+        }
+    }
 
 
     fun updateStateCurrentUser(newValue: StateCurrentUser){
@@ -96,7 +109,8 @@ class ViewModelAuthentication @Inject constructor(
     }
 
 
-    fun registerNewUser(){
+    private fun registerNewUser(){
+        updateStateRegisterNewUser(newValue = RegisterNewUser.LOADING)
         viewModelScope.launch{
             if(_uiState.value.emailRegisterNewUser.isNotEmpty()
                 && _uiState.value.passwordRegisterNewUser.isNotEmpty()
@@ -108,12 +122,7 @@ class ViewModelAuthentication @Inject constructor(
 
                 ){
                     is AuthRes.Succes -> {
-
-                       _uiState.update {
-                           it.copy(
-                               stateRegisterNewUser = RegisterNewUser.SUCCESS
-                           )
-                       }
+                        updateStateRegisterNewUser(RegisterNewUser.SUCCESS)
                         if(auth.getCurrentUser() != null){
                             auth.signOut()
                         }
@@ -137,6 +146,19 @@ class ViewModelAuthentication @Inject constructor(
             }
         }
 
+    }
+
+    fun validatePasswordsAndRegisterNewUser(){
+        if(_uiState.value.passwordRegisterNewUser == _uiState.value.confirmPasswordRegisterNewUser){
+            updateStateEqualsPasswordRegisterNewUser(
+                newValue = StateEqualsPasswordRegisterNewUser.EQUALS
+            )
+            registerNewUser()
+        }else{
+            updateStateEqualsPasswordRegisterNewUser(
+                newValue = StateEqualsPasswordRegisterNewUser.UNEQUALS
+            )
+        }
     }
 
 
@@ -168,7 +190,7 @@ class ViewModelAuthentication @Inject constructor(
         }
     }
 
-    fun stateSignInUser(newValue: StateSignInUser){
+    fun updateStateSignInUser(newValue: StateSignInUser){
         _uiState.update {
             it.copy(
                 stateSignInUser = newValue
@@ -197,6 +219,7 @@ class ViewModelAuthentication @Inject constructor(
     }
 
     fun signInUser(){
+        updateStateSignInUser(newValue = StateSignInUser.LOADING)
         viewModelScope.launch{
             if(_uiState.value.signInUserEmail.isNotEmpty()
                 && _uiState.value.signInUserPassword.isNotEmpty()
@@ -275,6 +298,7 @@ class ViewModelAuthentication @Inject constructor(
     }
 
     fun retrievePassword(){
+        updateStateRetrievePassword(newValue = StateRetrievePassoword.LOADING)
         viewModelScope.launch{
             if(_uiState.value.emailRetrievePassword.isNotEmpty()
             ){
@@ -311,6 +335,55 @@ class ViewModelAuthentication @Inject constructor(
 
 
 
+
+    /**
+     * Login as visitor elements
+     * */
+
+
+    fun updateStateLoginAsVisitor(newValue: StateLoginAsVisitor){
+        _uiState.update {
+            it.copy(
+                stateLoginAsVisitor = newValue
+            )
+        }
+
+    }
+    fun resetStateLoginAsVisitor(){
+        _uiState.update {
+            it.copy(
+                stateLoginAsVisitor = StateLoginAsVisitor.UNSPECIFIED,
+                errorLoginAsVisitor =  ""
+            )
+        }
+    }
+
+    fun loginAsVisitor(){
+        updateStateLoginAsVisitor(newValue = StateLoginAsVisitor.LOADING)
+        viewModelScope.launch {
+            if (auth != null) {
+                when(val result = auth.signInAnonymously()){
+                    is AuthRes.Succes -> {
+                        updateStateLoginAsVisitor(newValue = StateLoginAsVisitor.SUCCESS)
+                    }
+
+                    is AuthRes.Error -> {
+                        updateStateLoginAsVisitor(newValue = StateLoginAsVisitor.ERROR)
+                        _uiState.update {
+                            it.copy(
+                                errorLoginAsVisitor = result.errorMessage
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
+     * general accounts elements
+     * */
     fun getCurrentUser() { auth.getCurrentUser()}
 
     fun signOutCurrentUser() {auth.signOut()}

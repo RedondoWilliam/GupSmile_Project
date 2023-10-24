@@ -16,17 +16,23 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -42,6 +48,7 @@ import gupsmile.com.ui.commonElements.FloatingBottonDesignFixed
 import gupsmile.com.ui.theme.GupsMileTheme
 
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun RegisterNewUserScreen(
     modifier: Modifier = Modifier,
@@ -58,6 +65,9 @@ fun RegisterNewUserScreen(
 ){
 
     val columnStateRegisterNewUser = rememberScrollState()
+    var focusRequester: FocusRequester = remember{FocusRequester()}
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
     Box {
         Column(
             modifier = modifier
@@ -95,7 +105,7 @@ fun RegisterNewUserScreen(
                 ontextchage = {ontextChangeEmail(it)},
                 onCloseClicked = { /*TODO*/ },
                 onSearchClicked = {},
-                focusRequester = FocusRequester(),
+                focusRequester = focusRequester,
             )
             Spacer(modifier = modifier.height(22.dp))
             textCommonHomePage(
@@ -115,7 +125,7 @@ fun RegisterNewUserScreen(
                 ontextchage = {onTextChangePassword(it)},
                 onCloseClicked = { /*TODO*/ },
                 onSearchClicked = {},
-                focusRequester = FocusRequester()
+                focusRequester = focusRequester
             )
             Spacer(modifier = modifier.height(22.dp))
             PasswordConfirmTextEntryRegisterNewUser(
@@ -123,15 +133,32 @@ fun RegisterNewUserScreen(
                 ontextchage = {onTextConfirmPassword(it)},
                 onCloseClicked = { /*TODO*/ },
                 onSearchClicked = {},
-                focusRequester = FocusRequester()
+                focusRequester = focusRequester
             )
-            Spacer(modifier = modifier.height(50.dp))
+            if (password != confirmPassword  && password != "" && confirmPassword != ""){
+                Spacer(modifier = modifier.height(25.dp))
+                textCommonHomePage(
+                    stringResTextEntry = R.string.confirm_equals_passwords_register_new_user,
+                    maxLinesResParameter = 1,
+                    lineHeightParameter = 15.sp,
+                    fontSizeStyleParameter = 15.sp,
+                    fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
+                    colorStyleParameter = Color.Red,
+                    modifier = modifier
+                        .padding(start = 30.dp)
+                        .align(Alignment.Start)
+                )
+                Spacer(modifier = modifier.height(25.dp))
+            }else{
+                Spacer(modifier = modifier.height(50.dp))
+            }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 BottomItemDesignFixed(
                     bottomActions = {
+                        focusManager.clearFocus()
                         bottonActions()
                                     },
                     padddingStart = 5.dp,
@@ -144,7 +171,9 @@ fun RegisterNewUserScreen(
             Spacer(modifier = modifier.height(47.dp))
             Row(
                 modifier = modifier
-                    .padding(10.dp)
+                    .padding(start = 30.dp, end = 30.dp)
+                    .fillMaxWidth()
+                    .height(25.dp)
                     .clip(RoundedCornerShape(15.dp))
                     .clickable { existAccountActions() },
                 verticalAlignment = Alignment.CenterVertically,
@@ -159,8 +188,8 @@ fun RegisterNewUserScreen(
                     colorStyleParameter = colorResource(id = R.color.color_fotgot_password)
                 )
             }
-
         }
+
         FloatingBottonDesignFixed(
             imageIcon = R.drawable.arrowback,
             coordinateX = 15.dp,

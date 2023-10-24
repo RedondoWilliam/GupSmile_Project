@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import gupsmile.com.R
@@ -28,6 +30,8 @@ fun LoginWithPhoneOrEmailSection(
 
 ){
 
+    var focusRequester: FocusRequester = remember{FocusRequester()}
+    val focusManager = LocalFocusManager.current
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -40,7 +44,7 @@ fun LoginWithPhoneOrEmailSection(
             ontextchage = {onTextChangeEmail(it)} ,
             onCloseClicked = { /*TODO*/ },
             onSearchClicked = {} ,
-            focusRequester = FocusRequester()
+            focusRequester = focusRequester
         )
         Spacer(modifier = modifier.height(20.dp))
         PasswordTextEntry(
@@ -48,7 +52,7 @@ fun LoginWithPhoneOrEmailSection(
             ontextchage = {onTextChangePassword(it)} ,
             onCloseClicked = { /*TODO*/ },
             onSearchClicked = {} ,
-            focusRequester = FocusRequester()
+            focusRequester = focusRequester
         )
         Spacer(modifier = modifier.height(33.dp))
         Row(
@@ -56,7 +60,10 @@ fun LoginWithPhoneOrEmailSection(
             horizontalArrangement = Arrangement.Center
         ){
             BottomItemDesignFixed(
-                bottomActions = {bottomActions()},
+                bottomActions = {
+                   focusManager.clearFocus()
+                    bottomActions()
+                                },
                 padddingStart = 5.dp,
                 paddingEnd = 5.dp,
                 widthFixed = 127.dp ,

@@ -34,61 +34,23 @@ fun LoginWithPhoneOrEmailSectionPanelControl(
     auth: AuthManager,
     viewModelAuthentication: ViewModelAuthentication
 ){
-
-//    val viewModelAuthentication: ViewModelAuthentication = viewModel()
     val authenticationUiState = viewModelAuthentication.uiState.collectAsState().value
-
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-
-    var email by remember {
-        mutableStateOf("")
-    }
-    var password by remember {
-        mutableStateOf("")
-    }
 
     var showDialog by remember {
         mutableStateOf(false)
     }
 
-
     LoginWithPhoneOrEmailSection(
-        email =
-//        email
-        authenticationUiState.signInUserEmail
-        ,
-        password =
-//        password
-        authenticationUiState.signInUserPassword
-        ,
+        email = authenticationUiState.signInUserEmail,
+        password = authenticationUiState.signInUserPassword,
         onTextChangeEmail = {
-//                            email = it
             viewModelAuthentication.updateSignInUserEmail(newValue = it)
         },
         onTextChangePassword = {
-//                               password = it
             viewModelAuthentication.updateSignInUserPassword(newValue = it)
         },
         bottomActions = {
             viewModelAuthentication.signInUser()
-//            scope.launch {
-//               emailPassSignIn(
-//                   email = email,
-//                   password = password,
-//                   auth  = auth,
-//                   analytics = analytics,
-//                   context = context,
-//                   navigation = navController
-//
-//               )
-//
-//            }
-//            navController.navigate(RoutesMainScreens.HomeScreen.route) {
-//                popUpTo(RoutesMainScreens.LoginScreen.route) {
-//                    inclusive = true
-//                }
-//            }
         }
     )
 
@@ -96,7 +58,7 @@ fun LoginWithPhoneOrEmailSectionPanelControl(
         StateSignInUser.SUCCESS ->{
             showDialog = true
             viewModelAuthentication.updateStateCurrentUser(newValue = StateCurrentUser.ACTIVE)
-            analytics?.logButtonClicked(FirebaseAnalytics.Event.LOGIN)
+            analytics.logButtonClicked(FirebaseAnalytics.Event.LOGIN)
             viewModelAuthentication.resetElementsSignInUser()
             navController.navigate(RoutesMainScreens.HomeScreen.route){
                 popUpTo(RoutesMainScreens.LoginScreen.route) { inclusive = true }
@@ -104,7 +66,7 @@ fun LoginWithPhoneOrEmailSectionPanelControl(
         }
         StateSignInUser.ERROR -> {
             showDialog = true
-            analytics?.logButtonClicked(
+            analytics.logButtonClicked(
                 "Error SignUP: ${authenticationUiState.typeErrorSignInUser}"
             )
         }
@@ -112,10 +74,10 @@ fun LoginWithPhoneOrEmailSectionPanelControl(
             showDialog = true
         }
         StateSignInUser.UNSPECIFY -> {}
+        StateSignInUser.LOADING -> {}
     }
 
     if ( showDialog && authenticationUiState.stateSignInUser == StateSignInUser.SUCCESS ) {
-//       mostrar elemento de cargando sesión
     }
 
     if ( showDialog &&  authenticationUiState.stateSignInUser == StateSignInUser.ERROR ) {
@@ -144,29 +106,5 @@ fun LoginWithPhoneOrEmailSectionPanelControl(
             confirmBottomText = R.string.name_action_bottom_warning_error_crate_new_account,
             iconDialogMenu = R.drawable.warning_icon
         )
-    }
-}
-
-
-
-private suspend fun emailPassSignIn(email: String, password: String, auth: AuthManager, analytics: AnalitycsManager, context: Context, navigation: NavController) {
-    if(email.isNotEmpty() && password.isNotEmpty()) {
-        when (val result = auth.signInWithEmailAndPassword(email, password)) {
-            is AuthRes.Succes -> {
-                analytics.logButtonClicked("Click: Iniciar sesión correo & contraseña")
-                navigation.navigate(RoutesMainScreens.HomeScreen.route) {
-                    popUpTo(RoutesMainScreens.LoginScreen.route) {
-                        inclusive = true
-                    }
-                }
-            }
-
-            is AuthRes.Error -> {
-                analytics.logButtonClicked("Error SignUp: ${result.errorMessage}")
-                Toast.makeText(context, "Error SignUp: ${result.errorMessage}", Toast.LENGTH_SHORT).show()
-            }
-        }
-    } else {
-        Toast.makeText(context, "Existen campos vacios", Toast.LENGTH_SHORT).show()
     }
 }
