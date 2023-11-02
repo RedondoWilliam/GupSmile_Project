@@ -56,7 +56,7 @@ fun PhoneOrEmailTextEntry(
                 .clip(RoundedCornerShape(15.dp))
                 .background(colorResource(id = R.color.text_entry_login_color))
                 .height(36.dp)
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = 15.dp, end = 16.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -98,8 +98,8 @@ fun PhoneOrEmailTextEntry(
             textCommonHomePage(
                 stringResTextEntry = R.string.phone_and_email,
                 maxLinesResParameter = 1,
-                lineHeightParameter = 13.sp,
-                fontSizeStyleParameter = 13.sp ,
+                lineHeightParameter = 15.sp,
+                fontSizeStyleParameter = 15.sp ,
                 fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_extra_light)),
                 colorStyleParameter = Color.Black,
                 modifier = modifier

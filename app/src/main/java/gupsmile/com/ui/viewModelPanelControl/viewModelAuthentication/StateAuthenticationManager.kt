@@ -42,6 +42,12 @@ data class StateAuthenticationManager(
      * */
 
     var stateLoginAsVisitor: StateLoginAsVisitor = StateLoginAsVisitor.UNSPECIFIED,
-    var errorLoginAsVisitor: String = ""
+    var errorLoginAsVisitor: String = "",
+
+
+    /**
+     * general state active users
+     * */
+    var stateLoginWithGoogle: StateLoginWithGoogle = StateLoginWithGoogle.UNSPECIFIED
 
 )

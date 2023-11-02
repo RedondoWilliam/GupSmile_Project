@@ -1,15 +1,20 @@
 package gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import gupsmile.com.data.MyModule
 import gupsmile.com.data.firebaseManager.AnalitycsManager
 import gupsmile.com.data.firebaseManager.AuthManager
 import gupsmile.com.model.AuthRes
@@ -21,6 +26,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.contracts.contract
 
 
 @HiltViewModel
@@ -381,6 +387,14 @@ class ViewModelAuthentication @Inject constructor(
     }
 
 
+
+
+    /**
+     * general Sign In with google elements
+     * */
+
+
+
     /**
      * general accounts elements
      * */
@@ -397,6 +411,19 @@ class ViewModelAuthentication @Inject constructor(
         }
     }
 
+
+
+    /**
+     * State general Active Users Elements
+     * */
+
+    fun updateStateLoginWithGoogle(newValue: StateLoginWithGoogle){
+       _uiState.update {
+           it.copy(
+               stateLoginWithGoogle = newValue
+           )
+       }
+    }
 
 }
 

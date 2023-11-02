@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,23 +32,23 @@ fun LoginBottom(
 ){
     Row(
         modifier = modifier
-            .padding(start = 114.dp, end = 114.dp)
             .clip(RoundedCornerShape(15.dp))
             .background(Color.Black)
-            .width(127.dp)
-            .height(32.dp)
+            .height(37.dp)
             .clickable { navigateHomeScreen() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
+        Spacer(modifier = modifier.width(22.dp))
         textCommonHomePage(
             stringResTextEntry = R.string.login_bottom,
             maxLinesResParameter = 1,
-            lineHeightParameter = 13.sp,
-            fontSizeStyleParameter = 13.sp,
+            lineHeightParameter = 15.sp,
+            fontSizeStyleParameter = 15.sp,
             fontFamilyStyleParameter =FontFamily(Font(R.font.raleway_semi_bold)),
             colorStyleParameter = Color.White
         )
+        Spacer(modifier = modifier.width(22.dp))
     }
 }
 
@@ -58,7 +59,8 @@ fun LoginBottomPreview(){
         Column(
             modifier = Modifier
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             LoginBottom(
                 navigateHomeScreen = {}

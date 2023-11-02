@@ -56,7 +56,7 @@ fun LoginAsVisitorPanelControl(
             }
             analytics?.logButtonClicked("Click: Continuar como invitado")
             viewModelAuthentication.updateStateCurrentUser(newValue = StateCurrentUser.ACTIVE)
-           
+
         }
         StateLoginAsVisitor.ERROR -> {
             analytics?.logError("Error SignIn Incognito: ${authenticationUiState.errorLoginAsVisitor}")
@@ -82,29 +82,3 @@ fun LoginAsVisitorPanelControl(
 
 }
 
-
-
-private suspend fun incognitSignIn(
-    auth: AuthManager?,
-    analytics: AnalitycsManager?,
-    context: Context,
-    navigation : NavHostController,
-    viewModelAuthentication: ViewModelAuthentication?
-){
-    if (auth != null) {
-        when(val result = auth.signInAnonymously()){
-            is AuthRes.Succes -> {
-                viewModelAuthentication?.updateStateCurrentUser(newValue = StateCurrentUser.ACTIVE)
-                analytics?.logButtonClicked("Click: Continuar como invitado")
-                navigation.navigate(RoutesMainScreens.HomeScreen.route){
-                    popUpTo(RoutesMainScreens.LoginScreen.route){
-                        inclusive = true
-                    }
-                }
-            }
-            is AuthRes.Error -> {
-                analytics?.logError("Error SignIn Incognito: ${result.errorMessage}")
-            }
-        }
-    }
-}

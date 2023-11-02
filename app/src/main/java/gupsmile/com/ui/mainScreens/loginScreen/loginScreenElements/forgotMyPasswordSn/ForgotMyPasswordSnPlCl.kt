@@ -36,7 +36,7 @@ fun ForgotMyPasswordSection(
     Row (
         horizontalArrangement = Arrangement.Center,
         modifier = modifier
-            .height(18.dp)
+            .height(20.dp)
             .clip(RoundedCornerShape(15.dp))
             .clickable {
                 bottonAction()

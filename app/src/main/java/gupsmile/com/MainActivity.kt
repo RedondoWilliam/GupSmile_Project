@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import gupsmile.com.ui.navigationApp.NavigationMainScreens
 //import gupsmile.com.ui.navigationApp.navigationAppPanelControl.NavigationAppPanelControl
 import gupsmile.com.ui.theme.GupsMileTheme
+import gupsmile.com.ui.viewModelPanelControl.viewModelAnalytics.ViewModelAnalytics
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
 
 

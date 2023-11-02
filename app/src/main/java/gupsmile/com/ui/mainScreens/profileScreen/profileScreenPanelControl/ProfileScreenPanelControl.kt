@@ -17,12 +17,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import gupsmile.com.R
 import gupsmile.com.data.firebaseManager.AnalitycsManager
 import gupsmile.com.data.firebaseManager.AuthManager
@@ -39,6 +43,7 @@ import gupsmile.com.ui.navigationApp.RoutesMainScreens
 import gupsmile.com.ui.theme.GupsMileTheme
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateCurrentUser
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginAsVisitor
+import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginWithGoogle
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
 
 @Composable
@@ -61,14 +66,9 @@ fun ProfileScreenPanelControl(
 
     val user = auth?.getCurrentUser()
 
-    val profileImage =
-        if(user?.photoUrl != null){
-            painterResource(id = R.drawable.profile_image)
-        }else{
-            painterResource(id = R.drawable.profile_image)
-        }
 
     val onLogOutConfirmed: () -> Unit = {
+        viewModelAuthentication?.updateStateLoginWithGoogle(newValue = StateLoginWithGoogle.UNSPECIFIED)
         viewModelAuthentication?.signOutCurrentUser()
         viewModelAuthentication?.updateStateCurrentUser(newValue = StateCurrentUser.NULE)
         if(authenticationUiState?.stateLoginAsVisitor == StateLoginAsVisitor.SUCCESS){
@@ -89,9 +89,7 @@ fun ProfileScreenPanelControl(
                 .fillMaxHeight()
                 .background(Color.White)
         ) {
-            PhotoProfileScreenSection(
-                profileImage =  profileImage
-            )
+            PhotoProfileScreenSection()
             NameToosEditProfileScreen(
                 nameUser = if(!user?.email.isNullOrEmpty())"${user?.email}" else "Anonimo"
             )

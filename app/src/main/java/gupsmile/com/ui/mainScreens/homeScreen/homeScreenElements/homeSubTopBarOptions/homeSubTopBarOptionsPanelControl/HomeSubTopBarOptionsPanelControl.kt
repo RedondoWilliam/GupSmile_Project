@@ -8,11 +8,13 @@ import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.homeSubTopBarOp
 @Composable
 fun HomeSubTopBarOptionsPanelControl(
     modifier: Modifier = Modifier,
-    auth: AuthManager?
+    auth: AuthManager?,
+    messagesBottomActions: () -> Unit
 ){
     val user = auth?.getCurrentUser()
 
     HomeSubTopBarOptionsElements(
-        nameUser = if(!user?.email.isNullOrEmpty())"${user?.email}" else "Anónimo"
+        nameUser = if(!user?.email.isNullOrEmpty())"${user?.email}" else "Anónimo",
+        messagesBottomActions = {messagesBottomActions()}
     )
 }

@@ -12,7 +12,20 @@
           "package_name": "gupsmile.com"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1006201080017-lktlopgifth3lavak2ichum6qrbc4aqe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "gupsmile.com",
+            "certificate_hash": "28a9959efca6eda758513f729afe51508b4e1279"
+          }
+        },
+        {
+          "client_id": "1006201080017-la653b9krg8lest87h90m28ulmm3sm67.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCFetf0lWaVuKL_4-Nm8OgfVOFLclnPVyk"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006201080017-la653b9krg8lest87h90m28ulmm3sm67.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

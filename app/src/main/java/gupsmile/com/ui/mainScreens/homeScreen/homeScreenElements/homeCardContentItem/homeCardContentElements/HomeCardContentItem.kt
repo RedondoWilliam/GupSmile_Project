@@ -2,6 +2,7 @@ package gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.homeCardConten
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 //import androidx.compose.foundation.layout.ColumnScopeInstance.align
@@ -44,11 +45,13 @@ fun HomeCardContentItem(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp, end = 15.dp, top = 15.dp, bottom = 5.dp),
+                .padding(start = 10.dp, end = 15.dp, top = 15.dp, bottom = 5.dp)
+                .background(MaterialTheme.colorScheme.background),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment =  Alignment.CenterVertically
         ) {
@@ -67,7 +70,7 @@ fun HomeCardContentItem(
                     lineHeightParameter = 14.sp,
                     fontSizeStyleParameter =14.sp ,
                     fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
-                    colorStyleParameter = Color.Black
+                    colorStyleParameter = MaterialTheme.colorScheme.onBackground
                 )
             }
             Icon(
@@ -109,6 +112,7 @@ fun CardContent(
         modifier = modifier
             .fillMaxWidth()
             .padding(start = 14.dp, end = 20.dp, top = 10.dp, bottom = 15.dp)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         textCommonHomePageString(
             stringResTextEntry = descriptionPost,
@@ -116,7 +120,7 @@ fun CardContent(
             lineHeightParameter = 14.sp ,
             fontSizeStyleParameter = 14.sp,
             fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
-            colorStyleParameter = Color.Black
+            colorStyleParameter = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = modifier.height(5.dp))
         textCommonHomePageString(
@@ -125,7 +129,7 @@ fun CardContent(
             lineHeightParameter = 12.sp,
             fontSizeStyleParameter =12.sp,
             fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
-            colorStyleParameter = Color.Black
+            colorStyleParameter = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = modifier.height(4.dp))
         textCommonHomePageString(
@@ -134,7 +138,7 @@ fun CardContent(
             lineHeightParameter = 14.sp ,
             fontSizeStyleParameter = 14.sp,
             fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
-            colorStyleParameter = Color.Black,
+            colorStyleParameter = MaterialTheme.colorScheme.onBackground,
             modifier =  modifier.padding(bottom = 3.dp)
         )
         Spacer(modifier = modifier.height(6.dp))
@@ -250,6 +254,43 @@ fun HomeCardContentItemPreview(){
 @Preview(showBackground = true)
 fun HomeCardContentItemPreviewTwo(){
     GupsMileTheme {
+        HomeCardContentItem(
+            nameUser = "Lucia Hernández",
+            descriptionPost = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde " +
+                    "la oficina.",
+            timePost = "hace 30 minutos" ,
+            reactionsLikes = "1.2k",
+            reactionsComments = "145",
+            imagePost = painterResource(id = R.drawable.selfie_dos)
+        )
+    }
+
+
+}
+
+@Composable
+@Preview(showBackground = true)
+fun HomeCardContentItemDarkModePreview(){
+    GupsMileTheme(
+        darkTheme = true
+    ) {
+        HomeCardContentItem(
+            nameUser = "Lucia Hernández",
+            descriptionPost = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde " +
+                    "la oficina.",
+            timePost = "hace 30 minutos" ,
+            reactionsLikes = "1.2k",
+            reactionsComments = "145",
+            imagePost = painterResource(id = R.drawable.selfie)
+        )
+    }
+}
+@Composable
+@Preview(showBackground = true)
+fun HomeCardContentItemDarkModePreviewTwo(){
+    GupsMileTheme(
+        darkTheme = true
+    ) {
         HomeCardContentItem(
             nameUser = "Lucia Hernández",
             descriptionPost = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde " +

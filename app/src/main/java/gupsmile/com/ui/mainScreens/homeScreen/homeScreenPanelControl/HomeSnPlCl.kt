@@ -3,6 +3,7 @@ package gupsmile.com.ui.mainScreens.homeScreen.homeScreenPanelControl
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.rememberSplineBasedDecay
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 //import androidx.compose.foundation.layout.ColumnScopeInstance.align
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -65,6 +67,8 @@ fun HomeScreenPanelControl(
         Column(
             modifier = modifier
                 .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background
+                )
         ) {
             HomeTopAppBarPanelControl(
                 scroll = scrollBehavior,
@@ -73,7 +77,10 @@ fun HomeScreenPanelControl(
                 auth = auth
             )
             HomeSubTopBarOptionsPanelControl(
-                auth = auth
+                auth = auth,
+                messagesBottomActions = {
+                    navController.navigate(route = RoutesMainScreens.MessagesScreen.route)
+                }
             )
             Spacer(modifier = modifier.height(10.dp))
             HomeNavigationUpSectionsPanelControl()
@@ -101,6 +108,20 @@ fun HomeScreenPanelControl(
 fun HomeScreenPreview(
 ){
     GupsMileTheme {
+        HomeScreenPanelControl(
+            analytics = null,
+            auth = null
+        )
+    }
+}
+
+@Composable
+@Preview(showBackground = true, device = "spec:width=1080px,height=2340px,dpi=440")
+fun HomeScreenDarkModePreview(
+){
+    GupsMileTheme(
+        darkTheme = true
+    ) {
         HomeScreenPanelControl(
             analytics = null,
             auth = null

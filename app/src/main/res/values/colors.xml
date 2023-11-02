@@ -13,4 +13,5 @@
     <color name="color_botton_login_google">#FFE1E1E1</color>
     <color name="color_bottom_login_visitor">#FF343434</color>
     <color name="color_alert_dialog_menu">#EBEBEB</color>
+    <color name="color_dialog_without_chats_messages_screen">#FFB8B8B8</color>
 </resources>

@@ -1,10 +1,22 @@
 package gupsmile.com.data.firebaseManager
 
 
+import android.content.Context
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import gupsmile.com.R
 import gupsmile.com.model.AuthRes
 //import gupsmile.com.network.FirebaseAuthentication
 import kotlinx.coroutines.tasks.await
@@ -12,13 +24,13 @@ import javax.inject.Inject
 
 //necesitamos contener los datos de autenticación, usamos una sealed class
 
-
-
 class AuthManager @Inject constructor(
-//    private val auth: FirebaseAuth
+    private val context: Context
 )  {
 
     private val auth: FirebaseAuth by lazy {Firebase.auth}
+
+    private val signInClient  = Identity.getSignInClient(context)
 
     /**
      * necesitamos hacer una petición de forma asíncrona para la autenticación de un usuario
@@ -71,9 +83,45 @@ class AuthManager @Inject constructor(
 
     fun signOut(){
         auth.signOut()
+        signInClient.signOut()
     }
 
     fun getCurrentUser(): FirebaseUser?{
         return auth.currentUser
     }
+
+
+    private val googleSignInClient: GoogleSignInClient by lazy {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(context.getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        GoogleSignIn.getClient(context, gso)
+    }
+    fun handleSignInResult(task: Task<GoogleSignInAccount>):AuthRes<GoogleSignInAccount>?{
+        return try {
+            val account = task.getResult(ApiException::class.java)
+            AuthRes.Succes(account)
+        }catch (e: ApiException){
+            AuthRes.Error(e.message ?: "Google sign-in failed")
+        }
+    }
+
+    suspend fun signInWithGoogleCredential(credential: AuthCredential):AuthRes<FirebaseUser>?{
+        return try {
+            val firebaseUser = auth.signInWithCredential(credential).await()
+            firebaseUser.user?.let {
+                AuthRes.Succes(it)
+            } ?: throw Exception("Sign in with Google failed.")
+        }catch (e: Exception){
+            AuthRes.Error(e.message ?: "Sign in with Google failed")
+        }
+    }
+
+    fun signInwithGoogle(googleSignInLauncher: ActivityResultLauncher<Intent>){
+        val signInIntent = googleSignInClient.signInIntent
+        googleSignInLauncher.launch(signInIntent)
+    }
+
+
 }

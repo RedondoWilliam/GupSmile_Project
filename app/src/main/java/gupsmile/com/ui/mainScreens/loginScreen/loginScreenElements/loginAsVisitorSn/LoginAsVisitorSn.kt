@@ -37,9 +37,9 @@ fun LoginAsVisitorSection(
 ){
     Row(
         modifier = modifier
-            .width(280.dp)
-            .height(32.dp)
-            .clip(RoundedCornerShape(15.dp))
+            .width(310.dp)
+            .height(37.dp)
+            .clip(RoundedCornerShape(19.dp))
             .background(colorResource(id = R.color.color_bottom_login_visitor))
             .padding(start = 30.dp, end = 30.dp)
             .clickable {
@@ -58,12 +58,12 @@ fun LoginAsVisitorSection(
                 .size(17.dp)
         )
 
-        Spacer(modifier = modifier.width(15.dp))
+        Spacer(modifier = modifier.width(17.dp))
         textCommonHomePage(
             stringResTextEntry = R.string.login_visitor_bottom,
             maxLinesResParameter = 1,
-            lineHeightParameter = 13.sp,
-            fontSizeStyleParameter = 13.sp,
+            lineHeightParameter = 15.sp,
+            fontSizeStyleParameter = 15.sp,
             fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_medium)),
             colorStyleParameter = Color.White
         )

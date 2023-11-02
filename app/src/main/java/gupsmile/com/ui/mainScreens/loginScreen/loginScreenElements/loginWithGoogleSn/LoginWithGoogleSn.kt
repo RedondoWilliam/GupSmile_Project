@@ -1,6 +1,7 @@
 package gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.loginWithGoogleSn
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,13 +33,15 @@ import gupsmile.com.ui.theme.GupsMileTheme
 
 @Composable
 fun LoginWithGoogleSection(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    buttonAction: () -> Unit
 ){
     Row(
         modifier = modifier
-            .width(280.dp)
-            .height(32.dp)
-            .clip(RoundedCornerShape(15.dp))
+            .clip(RoundedCornerShape(19.dp))
+            .clickable { buttonAction() }
+            .width(310.dp)
+            .height(37.dp)
             .background(colorResource(id = R.color.color_botton_login_google))
             .padding(start = 30.dp, end = 30.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -51,15 +54,15 @@ fun LoginWithGoogleSection(
             contentDescription = "Search Icon",
             tint = Color.Unspecified,
             modifier = Modifier
-                .size(17.dp)
+                .size(19.dp)
         )
 
         Spacer(modifier = modifier.width(15.dp))
         textCommonHomePage(
             stringResTextEntry = R.string.login_google_bottom,
             maxLinesResParameter = 1,
-            lineHeightParameter = 13.sp,
-            fontSizeStyleParameter = 13.sp,
+            lineHeightParameter = 15.sp,
+            fontSizeStyleParameter = 15.sp,
             fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_medium)),
             colorStyleParameter = Color.Black
         )
@@ -76,7 +79,9 @@ fun LoginGoogleSectionPreview(){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LoginWithGoogleSection()
+            LoginWithGoogleSection(
+                buttonAction = {}
+            )
         }
     }
 }

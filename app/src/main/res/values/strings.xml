@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">GupsMile</string>
+    <string name="default_web_client_id" translatable="false">1006201080017-la653b9krg8lest87h90m28ulmm3sm67.apps.googleusercontent.com</string>
+
+
+
+
+    --Common elements package elements--
+        --DialogMenuPersonalized elements--
+    <string name="text_content_dialog_delete_contact">¿Estás seguro que deseas eleminar este contacto?</string>
+    <string name="text_action_bottom_cancel">Cancelar</string>
+    <string name="text_action_bottom_aceptar">Aceptar</string>
+
+        --TopAppBarPersonalized elements--
+    <string name="empty_text"></string>
+
 
 
     --navigation Up options Home Screen
@@ -7,7 +21,7 @@
     <string name="my_reviews">Mis reseñas</string>
     <string name="resources">Recursos</string>
     <string name="your_people">tu gente</string>
-    
+
     --profile screen screen info--
     <string name="phone">Teléfono</string>
     <string name="email">Correo</string>
@@ -25,7 +39,7 @@
     <string name="login_bottom">iniciar sesión</string>
     <string name="title_app_login">GupSmile</string>
     <string name="forgot_my_password">Olvidé mi contraseña</string>
-    <string name="register_new_user">¿No tienes una cuenta? Registrate</string>
+    <string name="register_new_user">¿No tienes una cuenta? Registrate!</string>
     <string name="login_google_bottom">Continuar con Google</string>
     <string name="login_visitor_bottom">Continuar como invitado</string>
 
@@ -85,7 +99,35 @@
     <string name="name_action_bottom_warning_error_crate_new_account">volver</string>
 
 
+    --Messages Screen elements--
+    <string name="chat_title">Chats</string>
+    <string name="dialog_without_contacts_messages_screen">Aún no tienes conversaciones.</string>
 
+    --Contacts Screen elements--
+    <string name="contacts_title">Contactos</string>
+    <string name="dialog_without_contacts_contacts_screen">Aún no tienes contactos agregados.</string>
+
+    --Add contact Local Screen elements--
+    <string name="add_contact_screen_title">Contacto nuevo</string>
+    <string name="name_new_contact">Nombre:</string>
+    <string name="last_name_new_contact">Apellido:</string>
+    <string name="phone_new_contact">Teléfono:</string>
+    <string name="adress_new_contact">Dirección:</string>
+    <string name="email_new_contact">Correo:</string>
+    <string name="bottom_title_new_contact">Guardar</string>
+    <string name="menu_options_dismiss">Descartar</string>
+    <string name="dialog_contac_added">Contacto agregado a tu lista. </string>
+    <string name="dialog_contact_edited">Contacto editado.</string>
+
+
+    --InfoLocalContactsScreen elements--
+    <string name="text_options_menu_edit_contact">Editar contacto</string>
+    <string name="text_options_menu_delete_contact">Eliminar contacto</string>
+    <string name="title_dialog_confirm_delete_contact">Contacto eleminado</string>
+    <string name="title_bottom_dialog_confirm_delete_contact">Volver</string>
+    <string name="title_dialog_there_is_no_information_by_show">Ups! Esto está vacío.</string>
+    
+    --
 
 
     --temporal

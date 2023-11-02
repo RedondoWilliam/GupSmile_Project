@@ -95,7 +95,7 @@ fun DefaultAppBar(
 
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Transparent
+            containerColor =MaterialTheme.colorScheme.background
         ),
         title = {
             textCommonHomePage(
@@ -110,14 +110,10 @@ fun DefaultAppBar(
 
         },
         actions = {
+
             ProfileImageHome(
                 modifier = Modifier
-                    .padding(end = 10.dp)
-                    .border(
-                        3.dp,
-                        colorResource(id = R.color.borderImageProfile),
-                        CircleShape
-                    ),
+                    .padding(end = 10.dp),
                 sizeImage = 44.dp,
                 navigationHomeProfile =navigationHomeProfile,
                 profileImage = profileImage

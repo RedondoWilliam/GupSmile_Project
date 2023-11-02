@@ -1,6 +1,7 @@
 package gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.homeNavigationUpSections.homeNavigationUpSectionElements
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -45,6 +47,7 @@ fun HomeNavigationUpSections(
         modifier = modifier
             .fillMaxWidth()
             .padding(bottom = 5.dp)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         item {
             Spacer(modifier = modifier.width(10.dp))
@@ -65,17 +68,17 @@ fun HomeNavigationUpSections(
                     horizontalPagerUiState.stateHorizontalPager.toString() ==
                     itemSection.nameSubSectionId
                 )
-                    CardDefaults.cardColors(Color.Black)
+                    CardDefaults.cardColors(MaterialTheme.colorScheme.secondaryContainer)
                 else
-                    CardDefaults.cardColors(Color.White),
+                    CardDefaults.cardColors(MaterialTheme.colorScheme.background),
                 colorFont =
                 if(
                     horizontalPagerUiState.stateHorizontalPager.toString() ==
                     itemSection.nameSubSectionId
                 ) {
-                    Color.White
+                    MaterialTheme.colorScheme.onSecondaryContainer
                 } else{
-                    Color.Black
+                    MaterialTheme.colorScheme.onBackground
                 }
             )
             Spacer(modifier = modifier.width(10.dp))
@@ -90,8 +93,8 @@ fun HomeNavigationUpItem(
     modifier: Modifier = Modifier,
     @StringRes nameSubSection: Int,
     fontFamily: FontFamily = FontFamily(Font(R.font.raleway_regular)),
-    colorItemSelected: CardColors = CardDefaults.cardColors(Color.Black),
-    colorFont: Color = Color.Black
+    colorItemSelected: CardColors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
+    colorFont: Color = MaterialTheme.colorScheme.onPrimaryContainer
 ){
     Card(
         shape = RoundedCornerShape(7.dp),

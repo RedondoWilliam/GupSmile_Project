@@ -32,12 +32,14 @@ import gupsmile.com.ui.commonElements.DialogLoading
 import gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.forgotMyPasswordSn.ForgotMyPasswordSection
 import gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.loginAsVisitorSn.LoginAsVisitorPanelControl
 import gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.loginWithGoogleSn.LoginWithGoogleSection
+import gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.loginWithGoogleSn.LoginWithGoogleSnPlCl
 //import gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.loginWithPhoneOrEmailSection.loginWithPhoneOrEmailSectionElements.LoginWithPhoneOrEmailSectionPanelControl
 import gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.loginWithPhoneOrEmailSn.loginWithPhoneOrEmailSnPlCl.LoginWithPhoneOrEmailSectionPanelControl
 import gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.registerNewUserSection.RegiterNewUserSection
 import gupsmile.com.ui.navigationApp.RoutesMainScreens
 import gupsmile.com.ui.theme.GupsMileTheme
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginAsVisitor
+import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginWithGoogle
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateSignInUser
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
 
@@ -69,8 +71,8 @@ fun LoginScreenPanelControl(
            textCommonHomePage(
                stringResTextEntry = R.string.title_app_login,
                maxLinesResParameter = 1,
-               lineHeightParameter = 25.sp,
-               fontSizeStyleParameter = 25.sp,
+               lineHeightParameter = 30.sp,
+               fontSizeStyleParameter = 30.sp,
                fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_bold)),
                colorStyleParameter = Color.Black
            )
@@ -92,7 +94,11 @@ fun LoginScreenPanelControl(
                navController = navController
            )
            Spacer(modifier = modifier.height(57.dp))
-           LoginWithGoogleSection()
+           LoginWithGoogleSnPlCl(
+               analytics = analytics,
+               navController = navController,
+               viewModelAuthentication =viewModelAuthentication
+           )
            Spacer(modifier = modifier.height(26.dp))
            LoginAsVisitorPanelControl(
                auth = auth,
@@ -104,7 +110,8 @@ fun LoginScreenPanelControl(
 
        if(
            authenticationUiState.stateSignInUser == StateSignInUser.LOADING ||
-           authenticationUiState.stateLoginAsVisitor == StateLoginAsVisitor.LOADING
+           authenticationUiState.stateLoginAsVisitor == StateLoginAsVisitor.LOADING ||
+           authenticationUiState.stateLoginWithGoogle == StateLoginWithGoogle.LOADING
            ){
            DialogLoading()
        }

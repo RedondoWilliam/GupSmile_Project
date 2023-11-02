@@ -50,3 +50,11 @@ enum class StateLoginAsVisitor{
     LOADING
 }
 
+enum class StateLoginWithGoogle{
+    SUCCESS,
+    ERROR,
+    UNSPECIFIED,
+    LOADING
+}
+
+

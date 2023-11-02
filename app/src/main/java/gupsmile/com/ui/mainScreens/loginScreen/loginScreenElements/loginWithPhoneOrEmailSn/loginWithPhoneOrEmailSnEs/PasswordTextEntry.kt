@@ -83,7 +83,7 @@ fun PasswordTextEntry(
                 }  ,
                 textStyle = TextStyle(
                     MaterialTheme.colorScheme.onSecondaryContainer,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     fontFamily = FontFamily(Font(R.font.raleway_extra_light))
                 ),
                 modifier = modifier
@@ -144,8 +144,8 @@ fun PasswordTextEntry(
             textCommonHomePage(
                 stringResTextEntry = R.string.password,
                 maxLinesResParameter = 1,
-                lineHeightParameter = 13.sp,
-                fontSizeStyleParameter = 13.sp ,
+                lineHeightParameter = 15.sp,
+                fontSizeStyleParameter = 15.sp ,
                 fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_extra_light)),
                 colorStyleParameter = Color.Black,
                 modifier = modifier

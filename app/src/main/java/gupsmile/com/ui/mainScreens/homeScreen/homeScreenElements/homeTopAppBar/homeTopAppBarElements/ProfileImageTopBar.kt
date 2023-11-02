@@ -1,14 +1,17 @@
 package com.ensayo.example.ui.topAppBarHomePage.topBarElements
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -29,7 +32,8 @@ fun ProfileImageHome(
         modifier = modifier
             .size(sizeImage)
             .clip(CircleShape)
-            .clickable { navigationHomeProfile() },
+            .clickable { navigationHomeProfile() }
+            .background(MaterialTheme.colorScheme.background),
         painter = profileImage,
         contentDescription = "description",
         contentScale = ContentScale.Crop,
@@ -44,7 +48,7 @@ fun ProfileImagePreview(){
         Surface {
             ProfileImageHome(
                 navigationHomeProfile = {},
-                profileImage = painterResource(id = R.drawable.profile_image)
+                profileImage = painterResource(id = R.drawable.selfie)
             )
         }
     }
