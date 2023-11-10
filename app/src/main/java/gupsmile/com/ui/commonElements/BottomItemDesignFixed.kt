@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,16 +37,16 @@ fun BottomItemDesignFixed(
     paddingEnd: Dp,
     widthFixed: Dp,
     textBottonName: Int,
-    sizeFontBottom: TextUnit = 13.sp
+    sizeFontBottom: TextUnit = 15.sp
 
 ){
     Row(
         modifier = modifier
             .padding(start = padddingStart, end = paddingEnd)
-            .clip(RoundedCornerShape(15.dp))
-            .background(Color.Black)
+            .clip(RoundedCornerShape(25.dp))
+            .background(MaterialTheme.colorScheme.primary)
             .width(widthFixed)
-            .height(32.dp)
+            .height(37.dp)
             .clickable { bottomActions() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
@@ -55,8 +56,8 @@ fun BottomItemDesignFixed(
             maxLinesResParameter = 1,
             lineHeightParameter = sizeFontBottom,
             fontSizeStyleParameter = sizeFontBottom,
-            fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_semi_bold)),
-            colorStyleParameter = Color.White
+            fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_medium)),
+            colorStyleParameter = MaterialTheme.colorScheme.onPrimary
         )
     }
 }
@@ -78,7 +79,7 @@ fun BottomItemDesignFixedPreview(){
                     bottomActions = {},
                     padddingStart = 5.dp,
                     paddingEnd = 5.dp,
-                    widthFixed = 127.dp ,
+                    widthFixed = 160.dp ,
                     textBottonName = R.string.login_bottom
                 )
             }

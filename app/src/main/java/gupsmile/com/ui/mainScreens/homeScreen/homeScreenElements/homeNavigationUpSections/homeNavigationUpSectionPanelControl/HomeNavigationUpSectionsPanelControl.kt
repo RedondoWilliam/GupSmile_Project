@@ -5,7 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.homeNavigationUpSections.homeNavigationUpSectionElements.HomeNavigationUpSections
-import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.subScreenHomeScreen.subscreensPanelControl.subscreensManagerState.ViewModelHorizontalPagerPage
+import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.sbSnsHomeSn.subscreensPanelControl.subscreensManagerState.ViewModelHorizontalPagerPage
 
 @Composable
 fun HomeNavigationUpSectionsPanelControl(

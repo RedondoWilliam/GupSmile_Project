@@ -28,8 +28,8 @@ import com.ensayo.example.ui.commonElements.textCommonHomePage
 import gupsmile.com.R
 import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.homeNavigationUpSections.homeNavigationUpSectionPanelControl.NavigationUpOptions
 import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.homeNavigationUpSections.homeNavigationUpSectionPanelControl.StorageNavigationUpOptions
-import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.subScreenHomeScreen.subscreensPanelControl.subscreensManagerState.UiStateHorizontalPagerPage
-import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.subScreenHomeScreen.subscreensPanelControl.subscreensManagerState.ViewModelHorizontalPagerPage
+import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.sbSnsHomeSn.subscreensPanelControl.subscreensManagerState.UiStateHorizontalPagerPage
+import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.sbSnsHomeSn.subscreensPanelControl.subscreensManagerState.ViewModelHorizontalPagerPage
 import gupsmile.com.ui.theme.GupsMileTheme
 
 
@@ -60,7 +60,7 @@ fun HomeNavigationUpSections(
                     horizontalPagerUiState.stateHorizontalPager.toString() ==
                     itemSection.nameSubSectionId
                 )
-                    FontFamily(Font(R.font.raleway_bold))
+                    FontFamily(Font(R.font.raleway_medium))
                 else
                     FontFamily(Font(R.font.raleway_regular)),
                 colorItemSelected =
@@ -68,17 +68,17 @@ fun HomeNavigationUpSections(
                     horizontalPagerUiState.stateHorizontalPager.toString() ==
                     itemSection.nameSubSectionId
                 )
-                    CardDefaults.cardColors(MaterialTheme.colorScheme.secondaryContainer)
+                    CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
                 else
-                    CardDefaults.cardColors(MaterialTheme.colorScheme.background),
+                    CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
                 colorFont =
                 if(
                     horizontalPagerUiState.stateHorizontalPager.toString() ==
                     itemSection.nameSubSectionId
                 ) {
-                    MaterialTheme.colorScheme.onSecondaryContainer
+                    MaterialTheme.colorScheme.onPrimary
                 } else{
-                    MaterialTheme.colorScheme.onBackground
+                    MaterialTheme.colorScheme.onPrimaryContainer
                 }
             )
             Spacer(modifier = modifier.width(10.dp))
@@ -97,13 +97,13 @@ fun HomeNavigationUpItem(
     colorFont: Color = MaterialTheme.colorScheme.onPrimaryContainer
 ){
     Card(
-        shape = RoundedCornerShape(7.dp),
+        shape = RoundedCornerShape(5.dp),
         colors = colorItemSelected
 
     ) {
         textCommonHomePage(
             modifier = modifier
-                .padding(start = 14.dp, end = 14.dp, top = 3.dp, bottom = 3.dp),
+                .padding(start = 15.dp, end = 15.dp, top = 3.dp, bottom = 3.dp),
             stringResTextEntry = nameSubSection,
             maxLinesResParameter = 1 ,
             lineHeightParameter = 14.sp,

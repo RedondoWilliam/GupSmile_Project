@@ -36,70 +36,67 @@ fun HomeSubTopBarOptionsElements(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(end = 23.dp, start = 17.dp, top = 10.dp, bottom = 10.dp)
-            .background(MaterialTheme.colorScheme.background),
+            .padding(end = 10.dp, start = 10.dp, top = 5.dp, bottom = 5.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.End
     ) {
-
-        Row (
-            modifier = modifier.width(200.dp)
-        ){
-            textCommonHomePageString(
-                stringResTextEntry = nameUser,
-                maxLinesResParameter = 1,
-                lineHeightParameter = 19.sp,
-                fontSizeStyleParameter = 19.sp,
-                fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_semi_bold)),
-                colorStyleParameter = MaterialTheme.colorScheme.onBackground,
-
-                )
-        }
 
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
-                .width(150.dp)
 
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.search_two),
-                contentDescription = "Search Icon",
-                tint = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier
-                    .size(25.dp)
-            )
             Box(
-                contentAlignment = Alignment.Center,
                 modifier = modifier
+                    .padding(10.dp)
                     .clip(CircleShape)
-                    .size(29.dp)
-                    .background(Color.White)
-                    .clickable { messagesBottomActions() }
+                    .background(MaterialTheme.colorScheme.primary)
+                    .size(38.dp)
+                    .clickable { messagesBottomActions() },
+                contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.message),
                     contentDescription = "Search Icon",
-                    tint = MaterialTheme.colorScheme.onBackground,
+                    tint = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier
-                        .size(27.dp)
+                        .size(22.dp)
                 )
             }
-            Icon(
-                painter = painterResource(id = R.drawable.notification),
-                contentDescription = "Search Icon",
-                tint = MaterialTheme.colorScheme.onBackground,
+            Box(
                 modifier = modifier
-                    .size(27.dp)
-            )
-            Icon(
-                painter = painterResource(id = R.drawable.like),
-                contentDescription = "Search Icon",
-                tint = MaterialTheme.colorScheme.onBackground,
+                    .padding(10.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary)
+                    .size(38.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.notification),
+                    contentDescription = "Search Icon",
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier
+                        .size(22.dp)
+                )
+            }
+            Box(
                 modifier = modifier
-                    .size(27.dp)
-            )
+                    .padding(10.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary)
+                    .size(38.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.like),
+                    contentDescription = "Search Icon",
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier
+                        .size(20.dp)
+                )
+            }
+
         }
 
 

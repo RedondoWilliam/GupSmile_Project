@@ -5,9 +5,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -30,16 +36,14 @@ import coil.request.ImageRequest
 import gupsmile.com.R
 import gupsmile.com.data.firebaseManager.AnalitycsManager
 import gupsmile.com.data.firebaseManager.AuthManager
+import gupsmile.com.ui.commonElements.DialogOptionsPersonalized
 import gupsmile.com.ui.commonElements.DropDownMenuItemPersonalized
 import gupsmile.com.ui.commonElements.FloatingBottonDesignFixed
 import gupsmile.com.ui.commonElements.LogOutDialogMenu
-import gupsmile.com.ui.mainScreens.profileScreen.profileScreenElements.profileNavigationUpSections.profileNavigationUpSectionsPanelControl.HomeProfileNavigationUpSectionsPanelControl
-import gupsmile.com.ui.mainScreens.profileScreen.profileScreenElements.nameToolsEditProfile.NameToosEditProfileScreen
-import gupsmile.com.ui.mainScreens.profileScreen.profileScreenElements.photoProfile.PhotoProfileScreenSection
-//import gupsmile.com.ui.mainScreens.profileScreen.profileScreenElements.photoProfile.PhotoProfileSectionPanelControl
-//import gupsmile.com.ui.mainScreens.profileScreen.profileScreenElements.photoProfile.ProfilePerfilPhoto
-import gupsmile.com.ui.mainScreens.profileScreen.profileScreenElements.profileSubScreens.ProfileSbsSnPlCl.ProfileSubscreensPanelControl
+import gupsmile.com.ui.mainScreens.profileScreen.profileScreenElements.ProfileSn
 import gupsmile.com.ui.navigationApp.RoutesMainScreens
+import gupsmile.com.ui.subScreens.infoLocalContactSn.infoLocalContactEs.InformationContactItemInfo
+import gupsmile.com.ui.subScreens.infoLocalContactSn.infoLocalContactEs.InformationContactScn
 import gupsmile.com.ui.theme.GupsMileTheme
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateCurrentUser
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginAsVisitor
@@ -82,48 +86,84 @@ fun ProfileScreenPanelControl(
         }
     }
 
-    Box {
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(Color.White)
-        ) {
-            PhotoProfileScreenSection()
-            NameToosEditProfileScreen(
-                nameUser = if(!user?.email.isNullOrEmpty())"${user?.email}" else "Anonimo"
-            )
-            HomeProfileNavigationUpSectionsPanelControl()
-            ProfileSubscreensPanelControl()
-        }
-        FloatingBottonDesignFixed(
-            imageIcon = R.drawable.menu,
-            coordinateX = 15.dp,
-            coordinateY = 20.dp,
-            sizeIcon = 35.dp,
-            onclickBottomActions = {
-                expanded = !expanded
+    Box(
+        contentAlignment = Alignment.TopEnd,
+    ) {
+        ProfileSn(
+            profilePhoto = {
+                if(user?.photoUrl != null){
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(user?.photoUrl)
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = "image",
+                        placeholder = painterResource(id = R.drawable.image_add_contact),
+                        contentScale = ContentScale.FillBounds,
+                        modifier = modifier
+                            .clip(CircleShape)
+                            .size(130.dp)
+                    )
+
+                }else{
+                    Icon(
+                        painter = painterResource(id = R.drawable.image_add_contact),
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = modifier.size(130.dp)
+                    )
+                }
+            },
+            nameUser = "William Redondo" ,
+            emailBottomAction = { /*TODO*/ },
+            chatBottomAction = { /*TODO*/ },
+            phoneBottomAction = { /*TODO*/ },
+            bottomMenuActions = {expanded = !expanded},
+            informationContact = {
+                InformationContactScn(
+                    informationContactItems = {
+                        InformationContactItemInfo(
+                            iconItem = R.drawable.phone_icon_info_contact,
+                            contentIntoText = "+57 3142908556",
+                            describeInfoText = "Teléfono móvil",
+                        )
+                        InformationContactItemInfo(
+                            iconItem = R.drawable.email_icon_info_contact,
+                            contentIntoText = "lucía-hernandez@gmail.com",
+                            describeInfoText = "",
+                        )
+                        InformationContactItemInfo(
+                            iconItem = R.drawable.addres_icon_add_contact,
+                            contentIntoText = "Calle 2 No. 3-56, Soracá -Boyacá",
+                            describeInfoText = "",
+                        )
+                    }
+
+
+                )
             }
         )
-
         Box(
-           contentAlignment = Alignment.TopStart,
-           modifier = modifier
-               .padding(start = 15.dp, top = 70.dp)
+            modifier = modifier
+                .padding(end = 45.dp, top = 60.dp)
         ) {
             DropdownMenu(
                 offset = DpOffset.Zero,
                 expanded = expanded,
-                onDismissRequest = { expanded = false })
+                onDismissRequest = { expanded = false },
+                modifier = modifier
+                    .background(MaterialTheme.colorScheme.tertiaryContainer))
             {
                 DropdownMenuItem(
                     text = {
                         DropDownMenuItemPersonalized(
                             imageIcon = R.drawable.suggest_app,
-                            nameItemMenu = R.string.suggest_app
+                            nameItemMenu = R.string.suggest_app,
                         )
                     },
-                    onClick = {}
+                    onClick = {},
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
                 DropdownMenuItem(
                     text = {
@@ -132,7 +172,9 @@ fun ProfileScreenPanelControl(
                             nameItemMenu = R.string.your_people
                         )
                     },
-                    onClick = {}
+                    onClick = {},
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
                 DropdownMenuItem(
                     text = {
@@ -141,7 +183,9 @@ fun ProfileScreenPanelControl(
                             nameItemMenu = R.string.family_item
                         )
                     },
-                    onClick = {}
+                    onClick = {},
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
                 DropdownMenuItem(
                     text = {
@@ -150,7 +194,9 @@ fun ProfileScreenPanelControl(
                             nameItemMenu = R.string.activity_item
                         )
                     },
-                    onClick = {}
+                    onClick = {},
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
                 DropdownMenuItem(
                     text = {
@@ -159,7 +205,9 @@ fun ProfileScreenPanelControl(
                             nameItemMenu = R.string.shares_item
                         )
                     },
-                    onClick = {}
+                    onClick = {},
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
                 DropdownMenuItem(
                     text = {
@@ -168,7 +216,9 @@ fun ProfileScreenPanelControl(
                             nameItemMenu = R.string.settings_items
                         )
                     },
-                    onClick = {}
+                    onClick = {},
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
                 DropdownMenuItem(
                     text = {
@@ -177,7 +227,9 @@ fun ProfileScreenPanelControl(
                             nameItemMenu = R.string.private_item
                         )
                     },
-                    onClick = {}
+                    onClick = {},
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
                 DropdownMenuItem(
                     text = {
@@ -186,7 +238,9 @@ fun ProfileScreenPanelControl(
                             nameItemMenu = R.string.saved_items
                         )
                     },
-                    onClick = {}
+                    onClick = {},
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
                 DropdownMenuItem(
                     text = {
@@ -195,7 +249,9 @@ fun ProfileScreenPanelControl(
                             nameItemMenu = R.string.update_item
                         )
                     },
-                    onClick = {}
+                    onClick = {},
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
                 DropdownMenuItem(
                     text = {
@@ -204,7 +260,9 @@ fun ProfileScreenPanelControl(
                             nameItemMenu = R.string.change_account
                         )
                     },
-                    onClick = {}
+                    onClick = {},
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
                 DropdownMenuItem(
                     text = {
@@ -216,22 +274,24 @@ fun ProfileScreenPanelControl(
                     onClick = {
                         showDialog = true
                         expanded = false
-                    }
+                    },
+                    modifier = modifier
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 )
             }
 
 
             if (showDialog) {
-                LogOutDialogMenu(
-                    onDismiss = {
-                        showDialog = false
-                    },
-                    onConfirmLogOut = {
+                DialogOptionsPersonalized(
+                    onDismiss = {  showDialog = false },
+                    onConfirmActions = {
                         onLogOutConfirmed()
-                    },
-                    titleAlertDialogMenu = R.string.titleAlertDialogMenu,
-                    confirmBottomText = R.string.confirmBottomText,
-                    dimmissBottomText = R.string.dimmissBottomText
+                        showDialog = false
+                                       },
+                    textCancelBottom = R.string.text_action_bottom_cancel,
+                    textConfirmBottom = R.string.text_action_bottom_aceptar,
+                    textInfoDialogMenu = R.string.titleAlertDialogMenu,
+                    iconDialogMenu = R.drawable.warning_icon
                 )
             }
         }

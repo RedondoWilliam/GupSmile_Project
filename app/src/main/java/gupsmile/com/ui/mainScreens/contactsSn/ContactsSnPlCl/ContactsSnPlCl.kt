@@ -28,8 +28,8 @@ import gupsmile.com.ui.mainScreens.contactsSn.contactsSnEs.ContactListItem
 import gupsmile.com.ui.mainScreens.contactsSn.contactsSnEs.ContactsSn
 import gupsmile.com.ui.mainScreens.messagesScreen.messagesSnEs.DialogWithoutChats
 import gupsmile.com.ui.navigationApp.RoutesMainScreens
-import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
-import gupsmile.com.ui.viewModelPanelControl.viewModelContacts.ViewModelContacts
+//import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
+//import gupsmile.com.ui.viewModelPanelControl.viewModelContacts.ViewModelContacts
 
 @Composable
 fun ContactsSnPlCl(
@@ -49,8 +49,10 @@ fun ContactsSnPlCl(
     val context = LocalContext.current
     val realTimeManager = MyModuleAuthentication.providesRealTimeManagerInstance(context)
 
-    val viewModelContacts : ViewModelContacts = viewModel()
-    val contactsUiState = viewModelContacts.uiState.collectAsState().value
+//    val viewModelContacts : ViewModelContacts = viewModel()
+//    val contactsUiState = viewModelContacts.uiState.collectAsState().value
+//
+//    val contacts by viewModelContacts.provideFlowListContacts().collectAsState(emptyList())
 
 
     /**

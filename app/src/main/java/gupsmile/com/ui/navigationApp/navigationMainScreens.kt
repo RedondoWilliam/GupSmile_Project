@@ -17,7 +17,8 @@ import gupsmile.com.data.firebaseManager.AuthManager
 import gupsmile.com.ui.mainScreens.contactsSn.ContactsSnPlCl.ContactsSnPlCl
 import gupsmile.com.ui.mainScreens.homeScreen.homeScreenPanelControl.HomeScreenPanelControl
 //import gupsmile.com.ui.mainScreens.homeScreen.homeScreenPanelControl.HomeScreenPanelControl
-import gupsmile.com.ui.mainScreens.loginScreen.loginScreenPanelControl.LoginScreenPanelControl
+//import gupsmile.com.ui.mainScreens.loginScreen.loginScreenPanelControl.LoginScreenPanelControl
+import gupsmile.com.ui.mainScreens.loginScreen.loginScreenPanelControl.LoginSnPlCl
 import gupsmile.com.ui.mainScreens.messagesScreen.messagesSnPlCl.MessagesSnPlCl
 import gupsmile.com.ui.mainScreens.profileScreen.profileScreenPanelControl.ProfileScreenPanelControl
 import gupsmile.com.ui.settingScreens.addContactLocalSn.addLocalContactPlCl.AddContactLocalSnPlCl
@@ -66,7 +67,7 @@ fun NavigationMainScreens(
             RoutesMainScreens.HomeScreen.route,
     ){
         composable(route = RoutesMainScreens.LoginScreen.route){
-            LoginScreenPanelControl(
+            LoginSnPlCl(
                 navController = navController,
                 analytics = analytics,
                 auth = authManager,

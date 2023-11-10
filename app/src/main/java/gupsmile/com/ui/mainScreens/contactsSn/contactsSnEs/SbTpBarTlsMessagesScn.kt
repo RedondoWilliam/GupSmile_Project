@@ -52,14 +52,14 @@ fun SubTopBarToolsScn(
                     modifier = modifier
                         .padding(10.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.tertiary)
+                        .background(MaterialTheme.colorScheme.primary)
                         .size(38.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.filter_messages),
                         contentDescription = "Search Icon",
-                        tint = MaterialTheme.colorScheme.onTertiary,
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier
                             .size(20.dp)
                     )
@@ -68,7 +68,7 @@ fun SubTopBarToolsScn(
                     modifier = modifier
                         .padding(10.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.tertiary)
+                        .background(MaterialTheme.colorScheme.primary)
                         .size(38.dp)
                         .clickable { addContactActionBottom() },
                     contentAlignment = Alignment.Center
@@ -76,7 +76,7 @@ fun SubTopBarToolsScn(
                     Icon(
                         painter = painterResource(id = R.drawable.add_contact),
                         contentDescription = "Search Icon",
-                        tint = MaterialTheme.colorScheme.onTertiary,
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = modifier
                             .size(17.dp)
                     )
@@ -85,14 +85,14 @@ fun SubTopBarToolsScn(
                     modifier = modifier
                         .padding(10.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.tertiary)
+                        .background(MaterialTheme.colorScheme.primary)
                         .size(38.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.setting),
                         contentDescription = "Search Icon",
-                        tint = MaterialTheme.colorScheme.onTertiary,
+                        tint =MaterialTheme.colorScheme.onPrimary,
                         modifier = modifier
                             .size(17.dp)
                     )
@@ -101,14 +101,14 @@ fun SubTopBarToolsScn(
                     modifier = modifier
                         .padding(10.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.tertiary)
+                        .background(MaterialTheme.colorScheme.primary)
                         .size(38.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.search_two),
                         contentDescription = "Search Icon",
-                        tint = MaterialTheme.colorScheme.onTertiary,
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier
                             .size(17.dp)
                     )

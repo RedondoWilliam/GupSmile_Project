@@ -33,19 +33,17 @@ fun DialogWithoutChats(
     contentTextDialog: Int
 ){
     Column(
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .clip(RoundedCornerShape(15.dp))
-            .background(MaterialTheme.colorScheme.primary)
             .padding(30.dp)
+            .background(MaterialTheme.colorScheme.background)
         ,
     ) {
-        Spacer(modifier = modifier.height(20.dp))
         Icon(
-            painter = painterResource(id = R.drawable.smile_face),
+            painter = painterResource(id = R.drawable.without_contacts_icon),
             contentDescription = "Search Icon",
-            tint = MaterialTheme.colorScheme.onPrimary,
+            tint = MaterialTheme.colorScheme.onBackground,
             modifier = modifier
                 .size(140.dp)
         )
@@ -53,10 +51,10 @@ fun DialogWithoutChats(
         textCommonHomePage(
             stringResTextEntry = contentTextDialog,
             maxLinesResParameter = 2,
-            lineHeightParameter = 18.sp,
-            fontSizeStyleParameter = 18.sp,
-            fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_light)) ,
-            colorStyleParameter =MaterialTheme.colorScheme.onPrimary
+            lineHeightParameter = 14.sp,
+            fontSizeStyleParameter = 14.sp,
+            fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_extra_light)) ,
+            colorStyleParameter =MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = modifier.height(20.dp))
 

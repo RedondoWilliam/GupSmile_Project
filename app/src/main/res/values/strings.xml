@@ -26,6 +26,8 @@
     <string name="phone">Teléfono</string>
     <string name="email">Correo</string>
     <string name="adress">Residencia</string>
+    <string name="title_sn_Profile_screen">Perfil</string>
+    <string name="description_section_profile_screen">Información de contacto</string>
 
     --profile screen navigation sections--
     <string name="contact_information">Información de contacto</string>
@@ -45,7 +47,7 @@
 
     --TopAppMenu elements--
     <string name="exit_out_account">cerrar sesión</string>
-    <string name="titleAlertDialogMenu">Cerrar sesión</string>
+    <string name="titleAlertDialogMenu">¿Estás seguro que quieres irte?</string>
     <string name="confirmBottomText">Aceptar</string>
     <string name="dimmissBottomText">Cancelar</string>
 
@@ -126,6 +128,24 @@
     <string name="title_dialog_confirm_delete_contact">Contacto eleminado</string>
     <string name="title_bottom_dialog_confirm_delete_contact">Volver</string>
     <string name="title_dialog_there_is_no_information_by_show">Ups! Esto está vacío.</string>
+
+
+    --HomeSnMyReviews Elements--
+    <string name="title_scn_add_new_review">¿Qué pasa por tu mente ahora mismo?</string>
+    <string name="title_text_field_add_new_review">¡Cuentanos!</string>
+    <string name="without_reviews_dialog_text">Aún no tienes reseñas.</string>
+    <string name="post_new_review_title_bottom">Publicar</string>
+    <string name="dimiss_post_new_review_title_bottom">Cancelar</string>
+
+    --EmergenMenuPd Elements--
+    <string name="name_list_action_edit_review">Editar reseña</string>
+    <string name="name_list_action_delete_review">Eliminar reseña</string>
+    <string name="text_content_dialog_delete_review">¿Estás seguro que deseas eliminar esta reseña?</string>
+    <string name="title_dialog_confirm_delete_review">Reseña eliminada de tu lista.</string>
+    <string name="visibility_option_post_review">Visibilidad</string>
+    <string name="coments_option_post_review">Comentarios</string>
+    <string name="share_option_post_review">Compartir</string>
+
     
     --
 

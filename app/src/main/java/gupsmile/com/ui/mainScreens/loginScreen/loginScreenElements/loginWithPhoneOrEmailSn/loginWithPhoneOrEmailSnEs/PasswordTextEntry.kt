@@ -68,7 +68,7 @@ fun PasswordTextEntry(
         Row(
             modifier = modifier
                 .clip(RoundedCornerShape(15.dp))
-                .background(colorResource(id = R.color.text_entry_login_color))
+                .background(MaterialTheme.colorScheme.tertiaryContainer)
                 .height(36.dp)
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth(),
@@ -82,14 +82,14 @@ fun PasswordTextEntry(
 
                 }  ,
                 textStyle = TextStyle(
-                    MaterialTheme.colorScheme.onSecondaryContainer,
+                    MaterialTheme.colorScheme.onTertiaryContainer,
                     fontSize = 15.sp,
                     fontFamily = FontFamily(Font(R.font.raleway_extra_light))
                 ),
                 modifier = modifier
                     .fillMaxWidth(0.92f)
                     .padding(start = 4.dp)
-                    .background(colorResource(id = R.color.text_entry_login_color))
+                    .background(MaterialTheme.colorScheme.tertiaryContainer)
                     .focusRequester(focusRequester),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password,
@@ -111,7 +111,7 @@ fun PasswordTextEntry(
                             R.drawable.close_eye_icon
                         ),
                         contentDescription = "",
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
                         modifier = Modifier
                             .clickable {
                                 visualTransformation = VisualTransformation.None
@@ -125,7 +125,7 @@ fun PasswordTextEntry(
                             R.drawable.open_eye_icon
                         ),
                         contentDescription = "",
-                        tint = Color.Black,
+                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
                         modifier = Modifier
                             .clickable {
                                 visualTransformation = PasswordVisualTransformation()
@@ -147,7 +147,7 @@ fun PasswordTextEntry(
                 lineHeightParameter = 15.sp,
                 fontSizeStyleParameter = 15.sp ,
                 fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_extra_light)),
-                colorStyleParameter = Color.Black,
+                colorStyleParameter = MaterialTheme.colorScheme.onTertiaryContainer,
                 modifier = modifier
                     .offset(x = 22.dp, y = 10.dp )
             )

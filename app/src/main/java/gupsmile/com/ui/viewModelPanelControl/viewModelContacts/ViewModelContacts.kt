@@ -6,20 +6,21 @@ import gupsmile.com.data.firebaseManager.AuthManager
 import gupsmile.com.data.firebaseManager.RealTimeManager
 import gupsmile.com.model.Contact
 import gupsmile.com.ui.viewModelPanelControl.viewModelTranslate.StateModelTranslate
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-@HiltViewModel
-class ViewModelContacts @Inject constructor(
-    private val realTimeManager: RealTimeManager,
-    private val authManager: AuthManager
-) : ViewModel() {
-
-    private val _uiState = MutableStateFlow(Contact())
-    val uiState: MutableStateFlow<Contact> = _uiState
-
-    fun provideFlowListContacts(){
-        
-    }
-}
+//@HiltViewModel
+//class ViewModelContacts @Inject constructor(
+//    private val realTimeManager: RealTimeManager,
+//    private val authManager: AuthManager
+//) : ViewModel() {
+//
+//    private val _uiState = MutableStateFlow(Contact())
+//    val uiState: MutableStateFlow<Contact> = _uiState
+//
+////    fun provideFlowListContacts(): Flow<List<Contact>> {
+////        return realTimeManager.getContactsFlow()
+////    }
+//}

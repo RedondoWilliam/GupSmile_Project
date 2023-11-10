@@ -36,13 +36,13 @@ fun DropDownMenuItemPersonalized(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .background(MaterialTheme.colorScheme.tertiaryContainer)
             .padding(start = 8.dp, end = 20.dp, top = 5.dp, bottom = 5.dp)
     ) {
         Icon(
             painter = painterResource(id = imageIcon),
             contentDescription = "Search Icon",
-            tint = MaterialTheme.colorScheme.onSecondaryContainer,
+            tint = MaterialTheme.colorScheme.onTertiaryContainer,
             modifier = Modifier
                 .size(17.dp)
         )
@@ -53,7 +53,8 @@ fun DropDownMenuItemPersonalized(
             lineHeightParameter = 15.sp,
             fontSizeStyleParameter = 15.sp,
             fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
-            colorStyleParameter = MaterialTheme.colorScheme.onSecondaryContainer        )
+            colorStyleParameter = MaterialTheme.colorScheme.onTertiaryContainer
+        )
     }
 }
 

@@ -32,12 +32,13 @@ fun HomeMessagesSn(
     modifier : Modifier = Modifier,
     arrowBackTopBottom: () -> Unit,
     bottomContactActions: () -> Unit,
+    contactsList: @Composable () -> Unit
 ){
     Box(
     ) {
         Column(
             verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background),
@@ -52,16 +53,7 @@ fun HomeMessagesSn(
             SubTopBarToolsScn(
                 bottomContactActions = bottomContactActions
             )
-            Column(
-                modifier = modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = modifier.height(130.dp))
-                DialogWithoutChats(
-                    contentTextDialog = R.string.dialog_without_contacts_messages_screen
-                )
-            }
+            contactsList()
 
         }
 
@@ -76,7 +68,29 @@ fun HomeMessagesSnPreview(){
     GupsMileTheme {
         HomeMessagesSn(
             arrowBackTopBottom = {},
-            bottomContactActions = {}
+            bottomContactActions = {},
+            contactsList = @Composable{
+                DialogWithoutChats(
+                    contentTextDialog = R.string.dialog_without_contacts_messages_screen
+                )
+            }
+        )
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun HomeMessagesSnDarkModePreview(){
+    GupsMileTheme(
+        darkTheme = true
+    ) {
+        HomeMessagesSn(
+            arrowBackTopBottom = {},
+            bottomContactActions = {},
+            contactsList = @Composable{
+                DialogWithoutChats(
+                    contentTextDialog = R.string.dialog_without_contacts_messages_screen
+                )
+            }
         )
     }
 }

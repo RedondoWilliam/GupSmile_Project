@@ -3,6 +3,7 @@ package gupsmile.com.ui.subScreens.infoLocalContactSn.infoLocalContactEs
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,9 +25,41 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ensayo.example.ui.commonElements.textCommonHomePage
 import com.ensayo.example.ui.commonElements.textCommonHomePageString
 import gupsmile.com.R
 
+
+@Composable
+fun InformationContactScn(
+    modifier: Modifier = Modifier,
+    informationContactItems: @Composable () -> Unit
+){
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(start= 18.dp, end = 10.dp, top = 15.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.Start
+    ) {
+        textCommonHomePage(
+            stringResTextEntry = R.string.description_section_profile_screen,
+            maxLinesResParameter = 2,
+            lineHeightParameter = 20.sp,
+            fontSizeStyleParameter = 20.sp,
+            fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_light)),
+            colorStyleParameter = MaterialTheme.colorScheme.onBackground
+        )
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(end = 10.dp, top = 10.dp, bottom = 20.dp)
+
+        ) {
+            informationContactItems()
+        }
+    }
+}
 
 @Composable
 fun InformationContactItemInfo(
@@ -38,17 +71,25 @@ fun InformationContactItemInfo(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, top = 15.dp, end = 20.dp, bottom = 20.dp),
+            .padding(start = 20.dp, top = 10.dp, end = 10.dp, bottom = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
         if(contentIntoText != ""){
-            Icon(
-                painter = painterResource(id = iconItem),
-                contentDescription = "",
-                tint = MaterialTheme.colorScheme.onTertiaryContainer,
-                modifier = modifier.size(18.dp)
-            )
+            Box(
+                modifier = modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(MaterialTheme.colorScheme.primaryContainer)
+                    .size(30.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = iconItem),
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    modifier = modifier.size(17.dp)
+                )
+            }
 
             if(describeInfoText != ""){
                 Column(
@@ -62,21 +103,21 @@ fun InformationContactItemInfo(
                         textCommonHomePageString(
                             stringResTextEntry = contentIntoText,
                             maxLinesResParameter = 1,
-                            lineHeightParameter = 18.sp ,
-                            fontSizeStyleParameter = 18.sp,
+                            lineHeightParameter = 16.sp ,
+                            fontSizeStyleParameter = 16.sp,
                             fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_light)),
-                            colorStyleParameter = MaterialTheme.colorScheme.onTertiaryContainer
+                            colorStyleParameter = MaterialTheme.colorScheme.onBackground
                         )
                     }
-                    Spacer(modifier = modifier.height(5.dp))
+                    Spacer(modifier = modifier.height(3.dp))
                     Row {
                         textCommonHomePageString(
                             stringResTextEntry = describeInfoText,
                             maxLinesResParameter = 1,
-                            lineHeightParameter = 18.sp ,
-                            fontSizeStyleParameter = 18.sp,
+                            lineHeightParameter = 15.sp ,
+                            fontSizeStyleParameter = 15.sp,
                             fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_light)),
-                            colorStyleParameter = MaterialTheme.colorScheme.onTertiaryContainer
+                            colorStyleParameter = MaterialTheme.colorScheme.onBackground
                         )
                     }
 
@@ -91,10 +132,10 @@ fun InformationContactItemInfo(
                     textCommonHomePageString(
                         stringResTextEntry = contentIntoText,
                         maxLinesResParameter = 1,
-                        lineHeightParameter = 18.sp ,
-                        fontSizeStyleParameter = 18.sp,
+                        lineHeightParameter = 16.sp ,
+                        fontSizeStyleParameter = 16.sp,
                         fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_light)),
-                        colorStyleParameter = MaterialTheme.colorScheme.onTertiaryContainer
+                        colorStyleParameter = MaterialTheme.colorScheme.onBackground
                     )
                 }
             }
@@ -105,30 +146,11 @@ fun InformationContactItemInfo(
 
 @Preview(showBackground = true)
 @Composable
-fun InformationContactItemInfoPreview(
+fun InformationContactScnPreview(
     modifier: Modifier = Modifier,
-
-    ){
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(start = 15.dp, end = 10.dp, top = 10.dp, bottom = 20.dp)
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 0.dp,
-                        topEnd = 15.dp,
-                        bottomEnd = 15.dp,
-                        bottomStart = 15.dp
-                    )
-                )
-                .background(MaterialTheme.colorScheme.primaryContainer)
-
-        ) {
+    InformationContactScn(
+        informationContactItems = {
             InformationContactItemInfo(
                 iconItem = R.drawable.phone_icon_info_contact,
                 contentIntoText = "+57 3142908556",
@@ -145,5 +167,5 @@ fun InformationContactItemInfoPreview(
                 describeInfoText = "",
             )
         }
-    }
+    )
 }

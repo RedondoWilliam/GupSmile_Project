@@ -17,7 +17,8 @@ import gupsmile.com.R
 import gupsmile.com.data.firebaseManager.AnalitycsManager
 import gupsmile.com.data.firebaseManager.AuthManager
 import gupsmile.com.model.AuthRes
-import gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.loginWithPhoneOrEmailSn.loginWithPhoneOrEmailSnEs.LoginWithPhoneOrEmailSection
+import gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.loginWithPhoneOrEmailSn.loginWithPhoneOrEmailSnEs.LoginWithPhoneOrEmailScn
+//import gupsmile.com.ui.mainScreens.loginScreen.loginScreenElements.loginWithPhoneOrEmailSn.loginWithPhoneOrEmailSnEs.LoginWithPhoneOrEmailSection
 import gupsmile.com.ui.navigationApp.RoutesMainScreens
 import gupsmile.com.ui.settingScreens.registerNewUserScreen.registerNewUserScreenElements.AlertDialogConfirmCreateAccount
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateCurrentUser
@@ -28,7 +29,7 @@ import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAu
 
 
 @Composable
-fun LoginWithPhoneOrEmailSectionPanelControl(
+fun LoginWithPhoneOrEmailScnPlCl(
     analytics: AnalitycsManager,
     navController: NavHostController,
     auth: AuthManager,
@@ -40,7 +41,7 @@ fun LoginWithPhoneOrEmailSectionPanelControl(
         mutableStateOf(false)
     }
 
-    LoginWithPhoneOrEmailSection(
+    LoginWithPhoneOrEmailScn(
         email = authenticationUiState.signInUserEmail,
         password = authenticationUiState.signInUserPassword,
         onTextChangeEmail = {

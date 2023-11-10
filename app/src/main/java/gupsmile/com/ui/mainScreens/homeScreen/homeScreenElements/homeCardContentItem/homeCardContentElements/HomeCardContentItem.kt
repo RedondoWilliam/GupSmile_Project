@@ -3,7 +3,9 @@ package gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.homeCardConten
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 //import androidx.compose.foundation.layout.ColumnScopeInstance.align
 import androidx.compose.foundation.layout.Row
@@ -13,9 +15,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,87 +33,101 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ensayo.example.ui.commonElements.textCommonHomePageString
 import com.ensayo.example.ui.topAppBarHomePage.topBarElements.ProfileImageHome
 import gupsmile.com.R
+import gupsmile.com.ui.commonElements.DropDownMenuItemPersonalized
 import gupsmile.com.ui.theme.GupsMileTheme
 
 @Composable
 fun HomeCardContentItem(
     modifier: Modifier = Modifier,
     nameUser: String,
-    descriptionPost: String,
     timePost: String,
     reactionsLikes: String,
     reactionsComments: String,
-    imagePost: Painter,
+    addContentMedia: @Composable () -> Unit,
+    descriptionPost: @Composable () -> Unit,
+    actionsMenuBottom: () -> Unit = {}
 ){
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(start = 10.dp, end = 15.dp, top = 15.dp, bottom = 5.dp)
-                .background(MaterialTheme.colorScheme.background),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment =  Alignment.CenterVertically
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment =  Alignment.CenterVertically
-            ) {
-                ProfileImageHome(
-                    navigationHomeProfile = {},
-                    profileImage = painterResource(id = R.drawable.selfie)
-                )
-                Spacer(modifier = modifier.width(10.dp))
-                textCommonHomePageString(
-                    stringResTextEntry = nameUser,
-                    maxLinesResParameter = 1,
-                    lineHeightParameter = 14.sp,
-                    fontSizeStyleParameter =14.sp ,
-                    fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
-                    colorStyleParameter = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            Icon(
-                painter = painterResource(id = R.drawable.setting_post),
-                contentDescription = "Search Icon",
-                tint = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier
-                    .size(20.dp)
-            )
-        }
-        Image(
-            modifier = modifier.fillMaxWidth(),
-            painter = imagePost ,
-            contentDescription = "",
-            contentScale = ContentScale.FillWidth
+   Box{
+       Column(
+           modifier = modifier
+               .fillMaxWidth()
+               .background(MaterialTheme.colorScheme.background)
+       ) {
+           Row(
+               modifier = modifier
+                   .fillMaxWidth()
+                   .padding(start = 10.dp, end = 15.dp, top = 15.dp, bottom = 5.dp)
+                   .background(MaterialTheme.colorScheme.background),
+               horizontalArrangement = Arrangement.SpaceBetween,
+               verticalAlignment =  Alignment.CenterVertically
+           ) {
+               Row(
+                   horizontalArrangement = Arrangement.Center,
+                   verticalAlignment =  Alignment.CenterVertically
+               ) {
+                   ProfileImageHome(
+                       navigationHomeProfile = {},
+                       profileImage = painterResource(id = R.drawable.selfie)
+                   )
+                   Spacer(modifier = modifier.width(10.dp))
+                   textCommonHomePageString(
+                       stringResTextEntry = nameUser,
+                       maxLinesResParameter = 1,
+                       lineHeightParameter = 14.sp,
+                       fontSizeStyleParameter =14.sp ,
+                       fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
+                       colorStyleParameter = MaterialTheme.colorScheme.onBackground
+                   )
+               }
+               Row(
+                   horizontalArrangement = Arrangement.End,
+                   verticalAlignment = Alignment.CenterVertically
+               ) {
+                   Icon(
+                       painter = painterResource(id = R.drawable.share_two),
+                       contentDescription = "Search Icon",
+                       tint = MaterialTheme.colorScheme.onBackground,
+                       modifier = Modifier
+                           .size(22.5.dp)
+                   )
+                   Spacer(modifier = modifier.width(22.dp))
+                   Icon(
+                       painter = painterResource(id = R.drawable.menu_down_icon),
+                       contentDescription = "Search Icon",
+                       tint = MaterialTheme.colorScheme.onBackground,
+                       modifier = Modifier
+                           .size(25.dp)
+                           .clickable {actionsMenuBottom()}
+                   )
+               }
+           }
+           addContentMedia()
+           CardContent(
+               nameUser = nameUser,
+               descriptionPost = descriptionPost,
+               timePost = timePost,
+               reactionsLikes = reactionsLikes,
+               reactionsComments =reactionsComments
+           )
+       }
 
-        )
-        CardContent(
-            nameUser = nameUser,
-            descriptionPost = descriptionPost,
-            timePost = timePost,
-            reactionsLikes = reactionsLikes,
-            reactionsComments =reactionsComments
-        )
-    }
+   }
 }
 
 @Composable
 fun CardContent(
     modifier: Modifier = Modifier,
     nameUser: String,
-    descriptionPost: String,
     timePost: String,
     reactionsLikes: String,
     reactionsComments: String,
+    descriptionPost: @Composable () -> Unit
 
     ) {
     Column(
@@ -114,14 +136,7 @@ fun CardContent(
             .padding(start = 14.dp, end = 20.dp, top = 10.dp, bottom = 15.dp)
             .background(MaterialTheme.colorScheme.background)
     ) {
-        textCommonHomePageString(
-            stringResTextEntry = descriptionPost,
-            maxLinesResParameter = 100,
-            lineHeightParameter = 14.sp ,
-            fontSizeStyleParameter = 14.sp,
-            fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
-            colorStyleParameter = MaterialTheme.colorScheme.onBackground
-        )
+        descriptionPost()
         Spacer(modifier = modifier.height(5.dp))
         textCommonHomePageString(
             stringResTextEntry = timePost,
@@ -183,13 +198,6 @@ fun CardContentIcons(
            horizontalArrangement = Arrangement.Center,
            verticalAlignment =  Alignment.CenterVertically
        ) {
-           Icon(
-               painter = painterResource(id = R.drawable.share_two),
-               contentDescription = "Search Icon",
-               tint = MaterialTheme.colorScheme.onBackground,
-               modifier = Modifier
-                   .size(25.dp)
-           )
            Spacer(modifier = modifier.width(26.dp))
            Icon(
                painter = painterResource(id = R.drawable.save_two),
@@ -241,12 +249,30 @@ fun HomeCardContentItemPreview(){
     GupsMileTheme {
         HomeCardContentItem(
             nameUser = "Lucia Hernández",
-            descriptionPost = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde " +
-                    "la oficina.",
+//            descriptionPost = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde " +
+//                    "la oficina.",
             timePost = "hace 30 minutos" ,
             reactionsLikes = "1.2k",
             reactionsComments = "145",
-            imagePost = painterResource(id = R.drawable.selfie)
+            addContentMedia = {
+                Image(
+                    modifier = Modifier.fillMaxWidth(),
+                    painter = painterResource(id = R.drawable.selfie),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillWidth
+
+                )
+            },
+            descriptionPost = {
+                    textCommonHomePageString(
+                        stringResTextEntry = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde la oficina" ,
+                        maxLinesResParameter = 100 ,
+                        lineHeightParameter = 14.sp ,
+                        fontSizeStyleParameter = 14.sp,
+                        fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_light)),
+                        colorStyleParameter = MaterialTheme.colorScheme.onBackground
+                    )
+            }
         )
     }
 }
@@ -256,12 +282,28 @@ fun HomeCardContentItemPreviewTwo(){
     GupsMileTheme {
         HomeCardContentItem(
             nameUser = "Lucia Hernández",
-            descriptionPost = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde " +
-                    "la oficina.",
             timePost = "hace 30 minutos" ,
             reactionsLikes = "1.2k",
             reactionsComments = "145",
-            imagePost = painterResource(id = R.drawable.selfie_dos)
+            addContentMedia = {
+                Image(
+                    modifier = Modifier.fillMaxWidth(),
+                    painter = painterResource(id =R.drawable.selfie_dos),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillWidth
+
+                )
+            },
+            descriptionPost = {
+                textCommonHomePageString(
+                    stringResTextEntry = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde la oficina" ,
+                    maxLinesResParameter = 100 ,
+                    lineHeightParameter = 14.sp ,
+                    fontSizeStyleParameter = 14.sp,
+                    fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_light)),
+                    colorStyleParameter = MaterialTheme.colorScheme.onBackground
+                )
+            }
         )
     }
 
@@ -276,12 +318,28 @@ fun HomeCardContentItemDarkModePreview(){
     ) {
         HomeCardContentItem(
             nameUser = "Lucia Hernández",
-            descriptionPost = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde " +
-                    "la oficina.",
             timePost = "hace 30 minutos" ,
             reactionsLikes = "1.2k",
             reactionsComments = "145",
-            imagePost = painterResource(id = R.drawable.selfie)
+            addContentMedia = {
+                Image(
+                    modifier = Modifier.fillMaxWidth(),
+                    painter = painterResource(id = R.drawable.selfie),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillWidth
+
+                )
+            },
+            descriptionPost = {
+                textCommonHomePageString(
+                    stringResTextEntry = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde la oficina" ,
+                    maxLinesResParameter = 100 ,
+                    lineHeightParameter = 14.sp ,
+                    fontSizeStyleParameter = 14.sp,
+                    fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_light)),
+                    colorStyleParameter = MaterialTheme.colorScheme.onBackground
+                )
+            }
         )
     }
 }
@@ -293,12 +351,28 @@ fun HomeCardContentItemDarkModePreviewTwo(){
     ) {
         HomeCardContentItem(
             nameUser = "Lucia Hernández",
-            descriptionPost = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde " +
-                    "la oficina.",
             timePost = "hace 30 minutos" ,
             reactionsLikes = "1.2k",
             reactionsComments = "145",
-            imagePost = painterResource(id = R.drawable.selfie_dos)
+            addContentMedia = {
+                Image(
+                    modifier = Modifier.fillMaxWidth(),
+                    painter = painterResource(id =R.drawable.selfie_dos),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillWidth
+
+                )
+            },
+            descriptionPost = {
+                textCommonHomePageString(
+                    stringResTextEntry = "Son unos pendejos, pero siguen siendo mis empleados. Saludos desde la oficina" ,
+                    maxLinesResParameter = 100 ,
+                    lineHeightParameter = 14.sp ,
+                    fontSizeStyleParameter = 14.sp,
+                    fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_light)),
+                    colorStyleParameter = MaterialTheme.colorScheme.onBackground
+                )
+            }
         )
     }
 

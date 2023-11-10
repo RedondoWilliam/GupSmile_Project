@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -46,48 +47,59 @@ fun SubTopBarToolsScn(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = modifier
-                    .width(150.dp)
+                    .padding(end = 10.dp)
 
             ) {
 
-                Icon(
-                    painter = painterResource(id = R.drawable.filter_messages),
-                    contentDescription = "Search Icon",
-                    tint = Color.Black,
-                    modifier = Modifier
-                        .size(27.dp)
-
-                )
+//                Icon(
+//                    painter = painterResource(id = R.drawable.filter_messages),
+//                    contentDescription = "Search Icon",
+//                    tint = Color.Black,
+//                    modifier = Modifier
+//                        .size(27.dp)
+//
+//                )
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = modifier
+                        .padding(10.dp)
+                        .clip(CircleShape)
+                        .size(38.dp)
+                        .background(MaterialTheme.colorScheme.primary)
+                        .clickable { bottomContactActions() }
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.contacts_directory),
+                        contentDescription = "Search Icon",
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = modifier
+                            .size(17.dp)
+                    )
+                }
+                Spacer(modifier = modifier.width(15.dp))
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = modifier
                         .clip(CircleShape)
-                        .size(29.dp)
-                        .background(Color.White)
+                        .size(38.dp)
+                        .background(MaterialTheme.colorScheme.primary)
                         .clickable { bottomContactActions() }
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.contact_messages),
+                        painter = painterResource(id = R.drawable.setting),
                         contentDescription = "Search Icon",
-                        tint = MaterialTheme.colorScheme.onBackground,
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = modifier
-                            .size(27.dp)
+                            .size(17.dp)
                     )
                 }
-                Icon(
-                    painter = painterResource(id = R.drawable.setting),
-                    contentDescription = "Search Icon",
-                    tint = MaterialTheme.colorScheme.onBackground,
-                    modifier = modifier
-                        .size(27.dp)
-                )
-                Icon(
-                    painter = painterResource(id = R.drawable.search_two),
-                    contentDescription = "Search Icon",
-                    tint = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier
-                        .size(25.dp)
-                )
+//                Icon(
+//                    painter = painterResource(id = R.drawable.search_two),
+//                    contentDescription = "Search Icon",
+//                    tint = MaterialTheme.colorScheme.onBackground,
+//                    modifier = Modifier
+//                        .size(25.dp)
+//                )
             }
 
 

@@ -42,7 +42,7 @@ import gupsmile.com.R
 import gupsmile.com.model.Contact
 import gupsmile.com.ui.navigationApp.RoutesMainScreens
 import gupsmile.com.ui.theme.GupsMileTheme
-import gupsmile.com.ui.viewModelPanelControl.viewModelContacts.ViewModelContacts
+//import gupsmile.com.ui.viewModelPanelControl.viewModelContacts.ViewModelContacts
 
 @Composable
 fun ContactListItem(
@@ -54,8 +54,8 @@ fun ContactListItem(
 ){
 
 
-    val viewModelContacts : ViewModelContacts = viewModel()
-    val contactsUiState = viewModelContacts.uiState.collectAsState().value
+//    val viewModelContacts : ViewModelContacts = viewModel()
+//    val contactsUiState = viewModelContacts.uiState.collectAsState().value
 
     Row(
         modifier = modifier

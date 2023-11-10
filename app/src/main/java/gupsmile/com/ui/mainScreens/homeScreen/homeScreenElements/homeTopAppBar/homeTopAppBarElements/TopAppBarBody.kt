@@ -3,6 +3,7 @@ package com.ensayo.example.ui.topAppBarHomePage.topBarElements
 import android.icu.util.UniversalTimeScale
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 //import androidx.compose.foundation.layout.ColumnScopeInstance.weight
@@ -62,7 +63,8 @@ fun TopAppBarBody(
     navigationHomeProfile: () -> Unit,
     onLogOutConfirmed: () -> Unit,
     expandedMenuOptions: () -> Unit,
-    profileImage: Painter
+    profileImage: Painter,
+    profilePhoto: @Composable () -> Unit
 
     ){
     DefaultAppBar(
@@ -71,7 +73,8 @@ fun TopAppBarBody(
         navigationHomeProfile = navigationHomeProfile,
         onLogOutConfirmed = onLogOutConfirmed,
         expandedMenuOptions = expandedMenuOptions,
-        profileImage = profileImage
+        profileImage = profileImage,
+        profilePhoto = profilePhoto
 
     )
 }
@@ -86,7 +89,8 @@ fun DefaultAppBar(
     navigationHomeProfile: () -> Unit,
     onLogOutConfirmed: () -> Unit,
     expandedMenuOptions: () -> Unit,
-    profileImage: Painter
+    profileImage: Painter,
+    profilePhoto: @Composable () -> Unit
 ){
 
 
@@ -110,14 +114,59 @@ fun DefaultAppBar(
 
         },
         actions = {
+           Row(
+               modifier = modifier,
+               verticalAlignment = Alignment.CenterVertically,
+               horizontalArrangement = Arrangement.End
+           ) {
 
-            ProfileImageHome(
-                modifier = Modifier
-                    .padding(end = 10.dp),
-                sizeImage = 44.dp,
-                navigationHomeProfile =navigationHomeProfile,
-                profileImage = profileImage
-                )
+               Box(
+                   modifier = modifier
+                       .padding(10.dp)
+                       .clip(CircleShape)
+                       .background(MaterialTheme.colorScheme.primary)
+                       .size(38.dp),
+                   contentAlignment = Alignment.Center
+               ) {
+                   Icon(
+                       painter = painterResource(id = R.drawable.notification),
+                       contentDescription = "Search Icon",
+                       tint = MaterialTheme.colorScheme.onPrimary,
+                       modifier = Modifier
+                           .size(22.dp)
+                   )
+               }
+
+               Box(
+                   modifier = modifier
+                       .padding(10.dp)
+                       .clip(CircleShape)
+                       .background(MaterialTheme.colorScheme.primary)
+                       .size(38.dp),
+                   contentAlignment = Alignment.Center
+               ) {
+                   Icon(
+                       painter = painterResource(id = R.drawable.search_two),
+                       contentDescription = "Search Icon",
+                       tint = MaterialTheme.colorScheme.onPrimary,
+                       modifier = Modifier
+                           .size(17.dp)
+                   )
+               }
+
+               Spacer(modifier = modifier.width(10.dp))
+               Box(
+                   modifier = modifier
+                       .padding(end = 10.dp)
+                       .size(38.dp)
+                       .clip(CircleShape)
+                       .background(MaterialTheme.colorScheme.secondaryContainer)
+                       .clickable { navigationHomeProfile() },
+                   contentAlignment = Alignment.Center
+               ) {
+                   profilePhoto()
+               }
+           }
         },
         scrollBehavior = scroll,
     )
@@ -137,7 +186,15 @@ fun DefaultAppBarPreview(){
             navigationHomeProfile = {},
             onLogOutConfirmed = {},
             expandedMenuOptions = {},
-            profileImage = painterResource(id = R.drawable.profile_image)
+            profileImage = painterResource(id = R.drawable.selfie),
+            profilePhoto = {
+                Icon(
+                    painter = painterResource(id = R.drawable.image_add_contact),
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(38.dp)
+                )
+            }
         )
     }
 }

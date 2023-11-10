@@ -80,8 +80,8 @@ fun DialogOptionsPersonalized(
                 textCommonHomePage(
                     stringResTextEntry = textInfoDialogMenu,
                     maxLinesResParameter = 5,
-                    lineHeightParameter = 17.sp,
-                    fontSizeStyleParameter = 17.sp,
+                    lineHeightParameter = 15.sp,
+                    fontSizeStyleParameter = 15.sp,
                     fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
                     colorStyleParameter = MaterialTheme.colorScheme.onSecondaryContainer,
                     textAlignPersonalized = TextAlign.Center
@@ -116,9 +116,9 @@ fun BottomActionDialogMenu(
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.tertiary)
+            .background(MaterialTheme.colorScheme.primary)
             .width(135.dp)
-            .height(38.dp)
+            .height(33.dp)
             .padding(start = 25.dp, end = 25.dp, top = 5.dp, bottom = 8.dp)
             .clickable { onConfirmActions() },
         verticalAlignment = Alignment.CenterVertically,
@@ -127,10 +127,10 @@ fun BottomActionDialogMenu(
         textCommonHomePage(
             stringResTextEntry = actionsBottomText,
             maxLinesResParameter = 1,
-            lineHeightParameter = 17.sp,
-            fontSizeStyleParameter = 17.sp,
-            fontFamilyStyleParameter =FontFamily(Font(R.font.raleway_medium)),
-            colorStyleParameter = MaterialTheme.colorScheme.onTertiary,
+            lineHeightParameter = 15.sp,
+            fontSizeStyleParameter = 15.sp,
+            fontFamilyStyleParameter =FontFamily(Font(R.font.raleway_regular)),
+            colorStyleParameter = MaterialTheme.colorScheme.onPrimary,
         )
     }
 }

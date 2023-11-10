@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ensayo.example.ui.commonElements.textCommonHomePage
@@ -26,7 +27,9 @@ import gupsmile.com.ui.theme.GupsMileTheme
 fun PersonalizedBottomActions(
     modifier: Modifier = Modifier,
     actionsBottomText: Int,
-    onConfirmActions: ()-> Unit
+    onConfirmActions: ()-> Unit,
+    sizeFontTitleBottom: TextUnit = 15.sp,
+    stileFontTitleBottom: FontFamily = FontFamily(Font(R.font.raleway_semi_bold))
 ){
     Row(
         modifier = modifier
@@ -42,9 +45,9 @@ fun PersonalizedBottomActions(
         textCommonHomePage(
             stringResTextEntry = actionsBottomText,
             maxLinesResParameter = 1,
-            lineHeightParameter = 15.sp,
-            fontSizeStyleParameter = 15.sp,
-            fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_semi_bold)),
+            lineHeightParameter = sizeFontTitleBottom,
+            fontSizeStyleParameter = sizeFontTitleBottom,
+            fontFamilyStyleParameter = stileFontTitleBottom,
             colorStyleParameter = MaterialTheme.colorScheme.onPrimary,
         )
     }

@@ -54,7 +54,7 @@ fun PhoneOrEmailTextEntry(
         Row(
             modifier = modifier
                 .clip(RoundedCornerShape(15.dp))
-                .background(colorResource(id = R.color.text_entry_login_color))
+                .background(MaterialTheme.colorScheme.tertiaryContainer)
                 .height(36.dp)
                 .padding(start = 15.dp, end = 16.dp)
                 .fillMaxWidth(),
@@ -68,14 +68,14 @@ fun PhoneOrEmailTextEntry(
 
                 }  ,
                 textStyle = TextStyle(
-                    MaterialTheme.colorScheme.onSecondaryContainer,
+                    MaterialTheme.colorScheme.onTertiaryContainer,
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.raleway_extra_light))
                 ),
                 modifier = modifier
                     .fillMaxWidth(0.92f)
                     .padding(start = 4.dp)
-                    .background(colorResource(id = R.color.text_entry_login_color))
+                    .background(MaterialTheme.colorScheme.tertiaryContainer)
                     .focusRequester(focusRequester),
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done,
@@ -101,7 +101,7 @@ fun PhoneOrEmailTextEntry(
                 lineHeightParameter = 15.sp,
                 fontSizeStyleParameter = 15.sp ,
                 fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_extra_light)),
-                colorStyleParameter = Color.Black,
+                colorStyleParameter = MaterialTheme.colorScheme.onTertiaryContainer,
                 modifier = modifier
                     .offset(x = 22.dp, y = 10.dp )
             )

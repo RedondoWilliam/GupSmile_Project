@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import gupsmile.com.data.firebaseManager.AuthManager
+import gupsmile.com.data.firebaseManager.FireStoreManager
 import gupsmile.com.data.firebaseManager.RealTimeManager
 import javax.inject.Singleton
 
@@ -28,6 +29,17 @@ object MyModuleAuthentication {
         @ApplicationContext context: Context
     ): RealTimeManager {
         return RealTimeManager(
+            context = context,
+            authManager = AuthManager(context)
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideFireStoreManagerInstance(
+        @ApplicationContext context: Context
+    ): FireStoreManager{
+        return FireStoreManager(
             context = context,
             authManager = AuthManager(context)
         )
