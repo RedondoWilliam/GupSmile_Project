@@ -398,9 +398,9 @@ class ViewModelAuthentication @Inject constructor(
     /**
      * general accounts elements
      * */
-    fun getCurrentUser() { auth.getCurrentUser()}
+    fun getCurrentUser() = auth.getCurrentUser()
 
-    fun signOutCurrentUser() {auth.signOut()}
+    fun signOutCurrentUser() = auth.signOut()
 
 
     init {

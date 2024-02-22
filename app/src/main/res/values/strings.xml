@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">GupsMile</string>
+    <string name="app_name_two">GupSmile</string>
     <string name="default_web_client_id" translatable="false">1006201080017-la653b9krg8lest87h90m28ulmm3sm67.apps.googleusercontent.com</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 
 
 
@@ -136,6 +138,7 @@
     <string name="without_reviews_dialog_text">Aún no tienes reseñas.</string>
     <string name="post_new_review_title_bottom">Publicar</string>
     <string name="dimiss_post_new_review_title_bottom">Cancelar</string>
+    <string name="content_dialog_posted_review">Tu Gup ha sido publicado.</string>
 
     --EmergenMenuPd Elements--
     <string name="name_list_action_edit_review">Editar reseña</string>
@@ -146,10 +149,32 @@
     <string name="coments_option_post_review">Comentarios</string>
     <string name="share_option_post_review">Compartir</string>
 
+    --AddNewHistorySn elements--
+    <string name="title_sn_addnewhistory">Nueva historia</string>
+    <string name="title_history_scn">¡Dale un título a tu historia!</string>
+    <string name="add_new_resource_history_scn">Agregar Imagen/Video</string>
+    <string name="add_new_photo_hostory_scn">Tomar una foto</string>
+    <string name="content_history_scn">Deja aquí tu historia</string>
+    <string name="post_hisrtory_scn">publicar</string>
+    <string name="save_history_scn">privado</string>
+    <string name="share_history_scn">compartir</string>
+    <string name="title_bottom_post_history">Publicar</string>
+    <string name="title_bottom_save_history">Guardar en privado</string>
+
+    --AddNewGupSn elements--
+    <string name="title_sn_addnewgup">Nuevo gup</string>
+    <string name="title_content_addnewgup">¿Qué pasa por tu mente ahora mismo?</string>
+    <string name="item_top_menu_dismiss">Descartar</string>
+    <string name="title_sn_update_gup">Actualizar gup</string>
+    <string name="action_update_gup">Actualizar</string>
+    <string name="title_bar_progress">Cargando nuevo Gup...</string>
+    <string name="notification_gup_added">Se ha cargado tu Gup.</string>
+
     
     --
 
 
     --temporal
     <string name="name_user">Lucia Hernández</string>
+    <string name="force_error">Forzar cierre Crashlytics</string>
 </resources>

@@ -32,6 +32,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -46,7 +47,9 @@ import gupsmile.com.ui.theme.GupsMileTheme
 
 @Composable
 fun DialogLoading(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    sizeBox: Dp = 300.dp,
+    sizeFigure: Dp = 200.dp
 ){
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.animation_loading_lottie)
@@ -70,11 +73,11 @@ fun DialogLoading(
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(300.dp)
-            .background(color = Color.Transparent)
+            .size(sizeBox)
+            .background(color = Color.Unspecified)
     ) {
         LottieAnimation(
-            modifier = modifier.size(280.dp),
+            modifier = modifier.size(sizeFigure),
             composition = composition,
             progress = {progress}
         )

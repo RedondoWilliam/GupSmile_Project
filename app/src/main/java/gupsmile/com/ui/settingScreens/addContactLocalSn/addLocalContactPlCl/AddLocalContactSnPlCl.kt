@@ -2,6 +2,8 @@ package gupsmile.com.ui.settingScreens.addContactLocalSn.addLocalContactPlCl
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -47,7 +49,9 @@ fun AddContactLocalSnPlCl(
 
     Box(
         modifier = modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .navigationBarsPadding()
+            .statusBarsPadding(),
     ) {
         if( contactKey == "{contactKey}" || contactKey == null ){
             AddContactLocalSn(

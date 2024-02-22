@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-cache-path name="my_images" path="/" />
+</paths>
+
+<!--Es un elemento que me va a permitir definir una ruta de acceso llamada my_images
+ que la va permitir al proveedor de archivos acceder al directorio raiz del almacenamiento externo
+ -->

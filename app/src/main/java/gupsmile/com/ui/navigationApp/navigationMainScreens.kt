@@ -2,6 +2,10 @@ package gupsmile.com.ui.navigationApp
 
 import android.content.Context
 import androidx.activity.viewModels
+import androidx.compose.animation.core.Easing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -11,9 +15,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import gupsmile.com.data.MyModuleAnalytics
 import gupsmile.com.data.MyModuleAuthentication
 import gupsmile.com.data.firebaseManager.AnalitycsManager
 import gupsmile.com.data.firebaseManager.AuthManager
+import gupsmile.com.data.temporalConfig.ViewModelGetReviews
+import gupsmile.com.data.temporalConfig.ViewModelUrlsImages
 import gupsmile.com.ui.mainScreens.contactsSn.ContactsSnPlCl.ContactsSnPlCl
 import gupsmile.com.ui.mainScreens.homeScreen.homeScreenPanelControl.HomeScreenPanelControl
 //import gupsmile.com.ui.mainScreens.homeScreen.homeScreenPanelControl.HomeScreenPanelControl
@@ -22,6 +29,8 @@ import gupsmile.com.ui.mainScreens.loginScreen.loginScreenPanelControl.LoginSnPl
 import gupsmile.com.ui.mainScreens.messagesScreen.messagesSnPlCl.MessagesSnPlCl
 import gupsmile.com.ui.mainScreens.profileScreen.profileScreenPanelControl.ProfileScreenPanelControl
 import gupsmile.com.ui.settingScreens.addContactLocalSn.addLocalContactPlCl.AddContactLocalSnPlCl
+//import gupsmile.com.ui.settingScreens.addNewGupSn.AddNewGupSnPlCl
+import gupsmile.com.ui.settingScreens.addNewResourceSn.AddNewHistorySnPlCl
 import gupsmile.com.ui.settingScreens.registerNewUserScreen.registerNewUserScreenPanelControl.RegisterNewUserScreenPanelControl
 import gupsmile.com.ui.settingScreens.retrievePasswordScreen.retrievePasswordScreenPanelControl.RetrievePasswordScreenPanelControl
 import gupsmile.com.ui.subScreens.infoLocalContactSn.infoLocalContactPlCl.InfoLocalContactPlCl
@@ -40,6 +49,7 @@ sealed class RoutesMainScreens(val route:String){
     object AddContactLocalSnPlCl: RoutesMainScreens("addContactLocalSnPlCl")
 
     object InfoLocalContactPlCl: RoutesMainScreens("infoLocalContactPlCl")
+    object AddNewHistorySnPlCl: RoutesMainScreens("addNewHistorySnPlCl")
 }
 
 
@@ -48,11 +58,13 @@ sealed class RoutesMainScreens(val route:String){
 fun NavigationMainScreens(
     modifier: Modifier = Modifier,
     context: Context,
-    viewModelAuthentication: ViewModelAuthentication
+    viewModelAuthentication: ViewModelAuthentication,
+    viewModelUrlsImages: ViewModelUrlsImages,
+    viewModelGetReviews: ViewModelGetReviews
 ){
 
     val authManager: AuthManager = MyModuleAuthentication.providesAutheticationManagerInstance(context)
-    var analytics = AnalitycsManager(context)
+    var analytics = MyModuleAnalytics.provideAnalyticsManagerInstance(context)
 //    val viewModelAuthentication : ViewModelAuthentication = viewModel()
     val authenticationUiState = viewModelAuthentication.uiState.collectAsState().value
     val navController = rememberNavController()
@@ -78,7 +90,9 @@ fun NavigationMainScreens(
             HomeScreenPanelControl(
                 navController = navController,
                 analytics = analytics,
-                auth = authManager
+                auth = authManager,
+                viewModelUrlImages = viewModelUrlsImages,
+                viewModelGetReviews = viewModelGetReviews
             )
         }
         composable(route = RoutesMainScreens.ProfileScreen.route){
@@ -86,7 +100,8 @@ fun NavigationMainScreens(
                 analytics = analytics,
                 auth = authManager,
                 navController = navController,
-                viewModelAuthentication = viewModelAuthentication
+                viewModelAuthentication = viewModelAuthentication,
+                viewModelGetReviews = viewModelGetReviews
             )
         }
         composable(route = RoutesMainScreens.RetrieveScreen.route){
@@ -138,6 +153,16 @@ fun NavigationMainScreens(
                 contactKey =  it.arguments?.getString("contactKey_edit_contact")
             )
         }
+
+        composable(
+            route = RoutesMainScreens.AddNewHistorySnPlCl.route
+        ){
+            AddNewHistorySnPlCl(
+                navController = navController
+            )
+        }
+
+
     }
 
 }

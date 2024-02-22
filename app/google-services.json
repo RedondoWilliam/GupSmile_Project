@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1006201080017",
+    "firebase_url": "https://gupsmileproject-default-rtdb.firebaseio.com",
     "project_id": "gupsmileproject",
     "storage_bucket": "gupsmileproject.appspot.com"
   },

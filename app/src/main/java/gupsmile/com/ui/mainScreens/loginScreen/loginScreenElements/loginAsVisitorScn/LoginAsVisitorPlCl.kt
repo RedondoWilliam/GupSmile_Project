@@ -56,11 +56,13 @@ fun LoginAsVisitorScnPlCl(
 
         }
         StateLoginAsVisitor.ERROR -> {
-            analytics?.logError("Error SignIn Incognito: ${authenticationUiState.errorLoginAsVisitor}")
+            analytics?.logError("Error SignIn Incognito:" +
+                    " ${authenticationUiState.errorLoginAsVisitor}")
             showDialog = true
         }
         StateLoginAsVisitor.UNSPECIFIED -> {}
         StateLoginAsVisitor.LOADING -> {}
+
     }
 
     if ( showDialog &&  authenticationUiState.stateLoginAsVisitor == StateLoginAsVisitor.ERROR ) {

@@ -7,7 +7,9 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -42,6 +45,83 @@ import gupsmile.com.ui.commonElements.PersonalizedBottomActions
 import gupsmile.com.ui.commonElements.PrincipalIconEmergentMenuItem
 import gupsmile.com.ui.commonElements.TextFieldPdTwo
 import gupsmile.com.ui.theme.GupsMileTheme
+
+
+
+
+
+
+
+@Composable
+fun AddNewGupAccessScn(
+    modifier: Modifier = Modifier,
+    bottomActions: () -> Unit
+){
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+            .clip(RoundedCornerShape(25.dp))
+            .clickable { bottomActions() },
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(
+            modifier = modifier
+                .clip(RoundedCornerShape(25.dp))
+                .background(MaterialTheme.colorScheme.tertiaryContainer)
+                .padding(5.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+
+        ) {
+            Spacer(modifier = modifier.width(16.dp))
+            Box(
+                modifier = modifier
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
+                    .size(30.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.add_new_review_icon),
+                    contentDescription = "Search Icon",
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                    modifier = Modifier
+                        .size(18.dp)
+                )
+            }
+            Spacer(modifier = modifier.width(16.dp))
+            textCommonHomePage(
+                stringResTextEntry = R.string.title_scn_add_new_review,
+                maxLinesResParameter = 2,
+                lineHeightParameter = 15.sp,
+                fontSizeStyleParameter = 15.sp,
+                fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
+                colorStyleParameter = MaterialTheme.colorScheme.onTertiaryContainer
+            )
+            Spacer(modifier = modifier.width(16.dp))
+        }
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun AddNewGupAccessScnPreview(){
+    GupsMileTheme {
+        AddNewGupAccessScn(
+            bottomActions = {}
+        )
+    }
+}
+
+
+
+
+
+
+
+
 
 @Composable
 fun AddNewReviewScn(

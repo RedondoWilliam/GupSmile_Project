@@ -72,6 +72,7 @@ fun LoginWithGoogleScnPlCl(
                         viewModelAuthentication.updateStateLoginWithGoogle(newValue = StateLoginWithGoogle.SUCCESS)
                     }
                 }
+                viewModelAuthentication.updateStateLoginWithGoogle(newValue = StateLoginWithGoogle.ACTIVE)
 
             }
             is AuthRes.Error -> {

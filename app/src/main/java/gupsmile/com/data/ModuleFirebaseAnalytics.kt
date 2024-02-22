@@ -1,6 +1,7 @@
 package gupsmile.com.data
 
 import android.content.Context
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +21,9 @@ object MyModuleAnalytics {
     fun provideAnalyticsManagerInstance(
         @ApplicationContext context: Context
     ): AnalitycsManager {
-        return  AnalitycsManager(context = context)
+        return  AnalitycsManager(
+            context = context,
+            firebaseAnalytics = ModuleServices.provideFirebaseAnalyticsInstance(context)
+        )
     }
 }

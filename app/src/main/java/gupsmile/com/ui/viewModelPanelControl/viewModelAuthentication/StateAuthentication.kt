@@ -40,7 +40,9 @@ enum class StateRetrievePassoword{
 
 enum class StateCurrentUser{
     NULE,
-    ACTIVE
+    ACTIVE,
+    LOGOUTCURRENTUSER,
+    LOGINCURRENTUSER,
 }
 
 enum class StateLoginAsVisitor{
@@ -51,10 +53,12 @@ enum class StateLoginAsVisitor{
 }
 
 enum class StateLoginWithGoogle{
+    ACTIVE,
     SUCCESS,
     ERROR,
     UNSPECIFIED,
     LOADING
 }
+
 
 

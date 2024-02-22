@@ -33,7 +33,7 @@ fun TopAppBarPersonalized(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, top = 25.dp, end = 20.dp, bottom = 20.dp),
+            .padding(start = 20.dp, top = 10.dp, end = 20.dp, bottom = 20.dp),
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {

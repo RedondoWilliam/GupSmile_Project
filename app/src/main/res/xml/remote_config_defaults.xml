@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--mantenemos la configuración en caso de no tener conexión a internet para mantener parámetros por
+defecto para remote config, la configuración se maneja en formato clave-valor
+en este caso de da el nombre del parámetro y su valor-->
+<defaultsMap>
+    <entry>
+        <key>welcome_message</key>
+        <value>| Firebase App</value>
+    </entry>
+    <entry>
+        <key>is_button_visible</key>
+        <value>true</value>
+    </entry>
+</defaultsMap>

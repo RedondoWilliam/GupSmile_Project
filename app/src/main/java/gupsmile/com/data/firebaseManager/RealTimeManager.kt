@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import gupsmile.com.data.ModuleServices
+import gupsmile.com.data.firebaseService.FirebaseRealtimeDataBaseService
 import gupsmile.com.model.Contact
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -18,8 +20,8 @@ import javax.inject.Inject
 
 class RealTimeManager @Inject constructor(
     private val context: Context,
-    private val authManager: AuthManager
-) {
+    private val authManager: AuthManager,
+): FirebaseRealtimeDataBaseService {
 
     /**
      *  necesitamos inicializar una instancia de la base de datos y unirnos a una rama si es que existe,
@@ -28,10 +30,10 @@ class RealTimeManager @Inject constructor(
      *  */
 
 
-    private val dataBaseReference: DatabaseReference =
-        FirebaseDatabase.getInstance().reference.child("contacts")
+    override val dataBaseReference: DatabaseReference =
+        ModuleServices.provideFirebaseRealTimeDataBaseInstance().child("contacts")
 
-    fun addContact(contact: Contact){
+    override fun addContact(contact: Contact){
         /**con key creamos in identificador único para cada objeto contaacto que se crea*/
         val key = dataBaseReference.push().key
         if(key != null){
@@ -42,18 +44,18 @@ class RealTimeManager @Inject constructor(
 
     /**la función para eliminar un contacto recibe un contactId que es el identificador de un
      * contacto en específico*/
-    fun deleteContact(contactId:String){
+    override fun deleteContact(contactId:String){
         dataBaseReference.child(contactId).removeValue()
     }
 
     /**
      *Método de actualización del objeto contacto en la base de datos
      * */
-    fun updateContact(contacId: String, updatedContact: Contact){
+    override fun updateContact(contacId: String, updatedContact: Contact){
         dataBaseReference.child(contacId).setValue(updatedContact)
     }
 
-    fun showContact(contactId: String): Flow<Contact> {
+    override fun showContact(contactId: String): Flow<Contact> {
         val contact: DatabaseReference = dataBaseReference.child(contactId)
 
         val flow = callbackFlow<Contact> {
@@ -92,7 +94,7 @@ class RealTimeManager @Inject constructor(
     /**
      * Método de actualización de lista de contactos mediante Flows
      * */
-    fun getContactsFlow(): Flow<List<Contact>>{
+    override fun getContactsFlow(): Flow<List<Contact>>{
         /**
          * solo se va a actualizar la lista de contactos asociados a la cuenta del usuario, por
          * lo que obtenemos una referencia al uid del usuario que se encuentra con sesión iniciada
@@ -131,6 +133,7 @@ class RealTimeManager @Inject constructor(
                      * En caso de haber error se cierra el canal con el error correspondiente
                      * */
                     close(error.toException())
+                    Log.d("Realtimedatabase", "tipo de error = ${error.message}")
                 }
             })
             /**

@@ -1,6 +1,7 @@
 package gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.homeCardContentItem.homeCardContentElements
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,8 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -42,6 +41,7 @@ import gupsmile.com.R
 import gupsmile.com.ui.commonElements.DropDownMenuItemPersonalized
 import gupsmile.com.ui.theme.GupsMileTheme
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeCardContentItem(
     modifier: Modifier = Modifier,
@@ -53,71 +53,68 @@ fun HomeCardContentItem(
     descriptionPost: @Composable () -> Unit,
     actionsMenuBottom: () -> Unit = {}
 ){
-   Box{
-       Column(
-           modifier = modifier
-               .fillMaxWidth()
-               .background(MaterialTheme.colorScheme.background)
-       ) {
-           Row(
-               modifier = modifier
-                   .fillMaxWidth()
-                   .padding(start = 10.dp, end = 15.dp, top = 15.dp, bottom = 5.dp)
-                   .background(MaterialTheme.colorScheme.background),
-               horizontalArrangement = Arrangement.SpaceBetween,
-               verticalAlignment =  Alignment.CenterVertically
-           ) {
-               Row(
-                   horizontalArrangement = Arrangement.Center,
-                   verticalAlignment =  Alignment.CenterVertically
-               ) {
-                   ProfileImageHome(
-                       navigationHomeProfile = {},
-                       profileImage = painterResource(id = R.drawable.selfie)
-                   )
-                   Spacer(modifier = modifier.width(10.dp))
-                   textCommonHomePageString(
-                       stringResTextEntry = nameUser,
-                       maxLinesResParameter = 1,
-                       lineHeightParameter = 14.sp,
-                       fontSizeStyleParameter =14.sp ,
-                       fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
-                       colorStyleParameter = MaterialTheme.colorScheme.onBackground
-                   )
-               }
-               Row(
-                   horizontalArrangement = Arrangement.End,
-                   verticalAlignment = Alignment.CenterVertically
-               ) {
-                   Icon(
-                       painter = painterResource(id = R.drawable.share_two),
-                       contentDescription = "Search Icon",
-                       tint = MaterialTheme.colorScheme.onBackground,
-                       modifier = Modifier
-                           .size(22.5.dp)
-                   )
-                   Spacer(modifier = modifier.width(22.dp))
-                   Icon(
-                       painter = painterResource(id = R.drawable.menu_down_icon),
-                       contentDescription = "Search Icon",
-                       tint = MaterialTheme.colorScheme.onBackground,
-                       modifier = Modifier
-                           .size(25.dp)
-                           .clickable {actionsMenuBottom()}
-                   )
-               }
-           }
-           addContentMedia()
-           CardContent(
-               nameUser = nameUser,
-               descriptionPost = descriptionPost,
-               timePost = timePost,
-               reactionsLikes = reactionsLikes,
-               reactionsComments =reactionsComments
-           )
-       }
-
-   }
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp, end = 15.dp, top = 15.dp, bottom = 5.dp)
+                .background(MaterialTheme.colorScheme.background),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment =  Alignment.CenterVertically
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment =  Alignment.CenterVertically
+            ) {
+                ProfileImageHome(
+                    navigationHomeProfile = {},
+                    profileImage = painterResource(id = R.drawable.selfie)
+                )
+                Spacer(modifier = modifier.width(10.dp))
+                textCommonHomePageString(
+                    stringResTextEntry = nameUser,
+                    maxLinesResParameter = 1,
+                    lineHeightParameter = 14.sp,
+                    fontSizeStyleParameter =14.sp ,
+                    fontFamilyStyleParameter = FontFamily(Font(R.font.raleway_regular)),
+                    colorStyleParameter = MaterialTheme.colorScheme.onBackground
+                )
+            }
+            Row(
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.share_two),
+                    contentDescription = "Search Icon",
+                    tint = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier
+                        .size(22.5.dp)
+                )
+                Spacer(modifier = modifier.width(22.dp))
+                Icon(
+                    painter = painterResource(id = R.drawable.menu_down_icon),
+                    contentDescription = "Search Icon",
+                    tint = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier
+                        .size(25.dp)
+                        .clickable {actionsMenuBottom()}
+                )
+            }
+        }
+        addContentMedia()
+        CardContent(
+            nameUser = nameUser,
+            descriptionPost = descriptionPost,
+            timePost = timePost,
+            reactionsLikes = reactionsLikes,
+            reactionsComments =reactionsComments
+        )
+    }
 }
 
 @Composable

@@ -7,23 +7,22 @@ import androidx.compose.runtime.DisposableEffect
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import gupsmile.com.data.firebaseService.FirebaseAnalitycsService
+
 import javax.inject.Inject
 
 
-class AnalitycsManager @Inject constructor
-    (private val context: Context)
+class AnalitycsManager @Inject constructor(
+    private val context: Context,
+    private val firebaseAnalytics: FirebaseAnalytics
+): FirebaseAnalitycsService
 {
-    private val firebaseAnalytics: FirebaseAnalytics by lazy {
-        FirebaseAnalytics.getInstance(context)
-    }
-
-
-    private fun logEvent(eventName: String, params: Bundle){
+    override fun logEvent(eventName: String, params: Bundle){
         firebaseAnalytics.logEvent(eventName, params)
 
     }
 
-    fun  logButtonClicked(buttonName: String){
+    override fun  logButtonClicked(buttonName: String){
         val params = Bundle().apply{
             putString("button_name", buttonName)
         }
@@ -37,7 +36,7 @@ class AnalitycsManager @Inject constructor
      * lo que va hacer trackScreen es enviar un evento a firebase de que hemos visto una screen,
      * track screen solo se va a componer una vez*/
     @Composable
-    fun logScreenView(screenName: String){
+    override fun logScreenView(screenName: String){
         DisposableEffect(Unit){
             onDispose {
                 val params = Bundle().apply {
@@ -51,7 +50,7 @@ class AnalitycsManager @Inject constructor
         }
     }
 
-    fun logError(error: String){
+    override fun logError(error: String){
         val params = Bundle().apply {
             putString("error", error)
         }

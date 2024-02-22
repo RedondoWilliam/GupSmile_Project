@@ -35,13 +35,13 @@ fun CircleShapeBottomPd(
             .clickable { bottomActionsItem() }
             .size(sizecontainerIcon)
             .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primaryContainer),
+            .background(containerColorIcon),
         contentAlignment = Alignment.Center
     ) {
         Icon(
             painter = painterResource(id = iconItem),
             contentDescription = "",
-            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+            tint =colorIcon,
             modifier = modifier.size(sizeIcon)
         )
     }

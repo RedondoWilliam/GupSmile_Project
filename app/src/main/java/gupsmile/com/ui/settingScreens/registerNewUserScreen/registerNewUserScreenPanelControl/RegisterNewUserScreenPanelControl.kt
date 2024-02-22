@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -67,7 +69,10 @@ fun RegisterNewUserScreenPanelControl(
     }
 
    Box (
-       modifier = modifier.fillMaxSize(),
+       modifier = modifier
+           .fillMaxSize()
+           .navigationBarsPadding()
+           .statusBarsPadding(),
        contentAlignment = Alignment.Center
    ){
        RegisterNewUserScreen(

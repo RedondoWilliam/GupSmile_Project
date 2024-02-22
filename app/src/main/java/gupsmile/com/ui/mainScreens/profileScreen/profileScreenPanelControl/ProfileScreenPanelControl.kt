@@ -1,13 +1,16 @@
 package gupsmile.com.ui.mainScreens.profileScreen.profileScreenPanelControl
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -18,6 +21,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +40,8 @@ import coil.request.ImageRequest
 import gupsmile.com.R
 import gupsmile.com.data.firebaseManager.AnalitycsManager
 import gupsmile.com.data.firebaseManager.AuthManager
+import gupsmile.com.data.temporalConfig.StateChangesOnListReviews
+import gupsmile.com.data.temporalConfig.ViewModelGetReviews
 import gupsmile.com.ui.commonElements.DialogOptionsPersonalized
 import gupsmile.com.ui.commonElements.DropDownMenuItemPersonalized
 import gupsmile.com.ui.commonElements.FloatingBottonDesignFixed
@@ -49,6 +55,7 @@ import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateCurren
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginAsVisitor
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginWithGoogle
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileScreenPanelControl(
@@ -56,10 +63,12 @@ fun ProfileScreenPanelControl(
     analytics: AnalitycsManager?,
     auth: AuthManager?,
     navController: NavHostController = rememberNavController(),
-    viewModelAuthentication: ViewModelAuthentication?
+    viewModelAuthentication: ViewModelAuthentication?,
+    viewModelGetReviews: ViewModelGetReviews?
 ){
     analytics?.logScreenView(screenName = RoutesMainScreens.ProfileScreen.route)
 
+    val scope = rememberCoroutineScope()
 
     val authenticationUiState = viewModelAuthentication?.uiState?.collectAsState()?.value
 
@@ -72,11 +81,21 @@ fun ProfileScreenPanelControl(
 
 
     val onLogOutConfirmed: () -> Unit = {
-        viewModelAuthentication?.updateStateLoginWithGoogle(newValue = StateLoginWithGoogle.UNSPECIFIED)
-        viewModelAuthentication?.signOutCurrentUser()
-        viewModelAuthentication?.updateStateCurrentUser(newValue = StateCurrentUser.NULE)
-        if(authenticationUiState?.stateLoginAsVisitor == StateLoginAsVisitor.SUCCESS){
-            viewModelAuthentication.resetStateLoginAsVisitor()
+        scope.launch {
+            viewModelAuthentication?.updateStateLoginWithGoogle(
+                newValue = StateLoginWithGoogle.UNSPECIFIED
+            )
+            viewModelAuthentication?.signOutCurrentUser()
+            viewModelAuthentication?.updateStateCurrentUser(newValue = StateCurrentUser.NULE)
+            viewModelGetReviews?.updateNotes(result = mutableListOf())
+            viewModelAuthentication?.getCurrentUser()?.reload()
+            viewModelGetReviews?.getCurrentUser()?.reload()
+            viewModelGetReviews?.updateStateChangesOnListReviews(
+                StateChangesOnListReviews.LOGOUTCURRENTUSER)
+            if(authenticationUiState?.stateLoginAsVisitor == StateLoginAsVisitor.SUCCESS
+                ){
+                viewModelAuthentication.resetStateLoginAsVisitor()
+            }
         }
         showDialog = false
         navController.navigate(RoutesMainScreens.LoginScreen.route){
@@ -84,10 +103,14 @@ fun ProfileScreenPanelControl(
                 this.inclusive = true
             }
         }
+
     }
 
     Box(
         contentAlignment = Alignment.TopEnd,
+        modifier = modifier
+            .navigationBarsPadding()
+            .statusBarsPadding()
     ) {
         ProfileSn(
             profilePhoto = {
@@ -305,7 +328,8 @@ fun ProfileScreenPanelControlPreview(){
         ProfileScreenPanelControl(
             analytics = null,
             auth = null,
-            viewModelAuthentication = null
+            viewModelAuthentication = null,
+            viewModelGetReviews = null
         )
     }
 }

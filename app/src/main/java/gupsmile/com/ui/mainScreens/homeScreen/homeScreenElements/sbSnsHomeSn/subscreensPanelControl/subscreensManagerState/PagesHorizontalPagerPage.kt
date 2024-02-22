@@ -1,8 +1,27 @@
 package gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.sbSnsHomeSn.subscreensPanelControl.subscreensManagerState
 
-enum class PagesHorizontalPagerPage {
+enum class PagesHorizontalPagerPage(
+    val text: String
+) {
+    POST("Post"),
+    SAVED("Gups"),
+    MYREVIEWS("Historia"),
+    TUGENTE("Tu gente"),
+}
+
+enum class CurrentPageHorizontalPager{
     POST,
-    SAVED,
     MYREVIEWS,
-    TUGENTE,
+    SAVED,
+    YOURPEOPLE,
+    NONE
+}
+
+enum class StatePointerInputHomeScreen{
+    ACTIVE,
+    NOACTIVE
+}
+enum class StatePointerAction{
+    ACTIVE,
+    NOACTIVE
 }

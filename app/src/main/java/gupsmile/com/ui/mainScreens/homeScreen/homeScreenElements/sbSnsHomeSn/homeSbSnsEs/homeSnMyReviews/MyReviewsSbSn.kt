@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -31,31 +32,15 @@ import gupsmile.com.ui.theme.GupsMileTheme
 @Composable
 fun MyReviewsSbSn(
     modifier: Modifier = Modifier,
-    textUser: String,
-    onTextChange: (String) -> Unit,
-    onDoneClicked: () -> Unit,
     listReviewsScn: @Composable () -> Unit,
-    onConfirmActionsBottom: () -> Unit,
-    onDimissBottom: () -> Unit,
 ) {
-    val scroll = rememberScrollState()
+
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(scroll)
-            .padding(10.dp)
-            .fillMaxHeight(),
-        verticalArrangement =  Arrangement.Top,
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        AddNewReviewScn(
-            textUser = textUser,
-            onTextChange = onTextChange,
-            onDoneClicked = onDoneClicked,
-            onConfirmActionsBottom = onConfirmActionsBottom,
-            onDimissBottom = onDimissBottom
-        )
-        Spacer(modifier = modifier.height(10.dp))
         listReviewsScn()
     }
 }
@@ -67,10 +52,10 @@ fun MyReviewsSbSn(
 fun MyReviewsSbSnPreview(){
     GupsMileTheme {
         MyReviewsSbSn(
-            textUser = "",
-            onTextChange = {},
-            onDoneClicked = {},
             listReviewsScn = {
+                AddNewGupAccessScn(
+                    bottomActions = { }
+                )
                 HomeCardContentItem(
                     nameUser = "Lucia Hernández",
                     timePost = "hace 30 minutos" ,
@@ -123,8 +108,6 @@ fun MyReviewsSbSnPreview(){
                     }
                 )
             },
-            onDimissBottom = {},
-            onConfirmActionsBottom = {}
         )
     }
 }

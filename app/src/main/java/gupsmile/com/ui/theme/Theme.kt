@@ -1,7 +1,9 @@
 package gupsmile.com.ui.theme
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
+import android.view.Window
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
@@ -9,11 +11,22 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.colorResource
+import androidx.core.graphics.toColor
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import gupsmile.com.R
+import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.sbSnsHomeSn.subscreensPanelControl.subscreensManagerState.ViewModelHorizontalPagerPage
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 private val LightColorScheme= lightColorScheme(
@@ -81,32 +94,54 @@ private val DarkColorScheme = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+
+
+
 @Composable
 fun GupsMileTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
+
+
+
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
+
     }
+
+
+
     val view = LocalView.current
-    if (!view.isInEditMode) {
+    if (!view.isInEditMode ) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.background.toArgb()
-            window.navigationBarColor =colorScheme.background.toArgb()
+//            window.statusBarColor =  colorScheme.background.toArgb()
+            window.navigationBarColor = colorScheme.background.toArgb()
+
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
             WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
         }
     }
+
+//    LaunchedEffect(horizontalPagerUiState.stateImage){
+//        if(!horizontalPagerUiState.stateImage){
+//            systemUiController.setSystemBarsColor(colorScheme.background)
+//        }
+//        if(horizontalPagerUiState.stateImage){
+//            systemUiController.setSystemBarsColor(Color(R.color.color_top_bar_with_filter))
+//        }
+//    }
+//
+
 
     MaterialTheme(
         colorScheme = colorScheme,
