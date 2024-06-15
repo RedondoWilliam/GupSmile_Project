@@ -51,6 +51,7 @@ fun HomeCardContentItem(
     reactionsComments: String,
     addContentMedia: @Composable () -> Unit,
     descriptionPost: @Composable () -> Unit,
+    notificationCharge: @Composable () -> Unit = {},
     actionsMenuBottom: () -> Unit = {}
 ){
     Column(
@@ -102,7 +103,7 @@ fun HomeCardContentItem(
                     tint = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier
                         .size(25.dp)
-                        .clickable {actionsMenuBottom()}
+                        .clickable { actionsMenuBottom() }
                 )
             }
         }
@@ -112,7 +113,8 @@ fun HomeCardContentItem(
             descriptionPost = descriptionPost,
             timePost = timePost,
             reactionsLikes = reactionsLikes,
-            reactionsComments =reactionsComments
+            reactionsComments =reactionsComments,
+            notificationCharge = notificationCharge
         )
     }
 }
@@ -124,7 +126,8 @@ fun CardContent(
     timePost: String,
     reactionsLikes: String,
     reactionsComments: String,
-    descriptionPost: @Composable () -> Unit
+    descriptionPost: @Composable () -> Unit,
+    notificationCharge: @Composable () -> Unit = {}
 
     ) {
     Column(
@@ -154,7 +157,9 @@ fun CardContent(
             modifier =  modifier.padding(bottom = 3.dp)
         )
         Spacer(modifier = modifier.height(6.dp))
-        CardContentIcons()
+        CardContentIcons(
+            notificationCharge = notificationCharge
+        )
     }
 }
 
@@ -162,6 +167,7 @@ fun CardContent(
 @Composable
 fun CardContentIcons(
     modifier: Modifier = Modifier,
+    notificationCharge: @Composable () -> Unit = {}
 ){
     Row(
         modifier =modifier
@@ -195,6 +201,7 @@ fun CardContentIcons(
            horizontalArrangement = Arrangement.Center,
            verticalAlignment =  Alignment.CenterVertically
        ) {
+           notificationCharge()
            Spacer(modifier = modifier.width(26.dp))
            Icon(
                painter = painterResource(id = R.drawable.save_two),

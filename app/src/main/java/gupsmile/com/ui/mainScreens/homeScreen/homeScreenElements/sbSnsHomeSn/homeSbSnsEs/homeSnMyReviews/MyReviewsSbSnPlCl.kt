@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 //import androidx.compose.foundation.lazy.grid.LazyGridItemScopeImpl.animateItemPlacement
@@ -26,6 +27,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -38,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.painterResource
 //import androidx.compose.ui.draw.EmptyBuildDrawCacheParams.density
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -63,6 +66,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.stream.IntStream
@@ -107,7 +111,7 @@ fun MyReviewsSbSnPlCl(
 
     val listState = rememberLazyListState()
     val viewModelGetReviewsUiState = viewModelGetReviews!!.uiState.collectAsState().value
-    val notesView = viewModelGetReviewsUiState?.stableNotes
+    val notesView = viewModelGetReviewsUiState.stableNotes
 
 
     var idReviewItem by remember { mutableStateOf("") }
@@ -116,9 +120,9 @@ fun MyReviewsSbSnPlCl(
     var showDialogDeleteConfirm by remember{ mutableStateOf(false) }
 
     var onDeleteNoteConfirmed: () -> Unit = {
-        viewModelGetReviews?.updateStateChangesOnListReviews(newValue = StateChangesOnListReviews.NEWCHANGES)
+        viewModelGetReviews.updateStateChangesOnListReviews(newValue = StateChangesOnListReviews.NEWCHANGES)
         CoroutineScope(Dispatchers.Default).launch {
-            viewModelGetReviews?.deleteNote(idReviewItem)
+            viewModelGetReviews.deleteNote(idReviewItem)
         }
     }
 
@@ -186,6 +190,17 @@ fun MyReviewsSbSnPlCl(
                                        contentGup = it.content
                                        viewModelHorizontalPager.updateStateImage(true)
                                        currentGup = it
+                                   },
+                                   notificationCharge = {
+                                       if (it.backendState){
+                                           Icon(
+                                               painter = painterResource(id = R.drawable.charge_error_icon),
+                                               contentDescription = "Search Icon",
+                                               tint = MaterialTheme.colorScheme.primary,
+                                               modifier = Modifier
+                                                   .size(25.dp)
+                                           )
+                                       }
                                    }
                                )
                            }
@@ -300,19 +315,22 @@ fun MyReviewsSbSnPlCl(
                           contentHistoryText = content,
                           contentHistoryOnTextChange = {content = it} ,
                           doneBottomAction = {
-                              viewModelHorizontalPager.updateStateNewGup(false)
-                              viewModelHorizontalPager.updatePauseGlobalStateUi(false)
-                              scope.launch{
+                              scope.launch {
+                                  viewModelHorizontalPager.updateStateNewGup(false)
+                                  viewModelHorizontalPager.updatePauseGlobalStateUi(false)
                                   val newNote = Note(
                                       content = content,
                                       orderList = currentGup.orderList,
                                       secondId = generateRandomTenDigitsNumber()
                                   )
-                                  viewModelGetReviews?.addNote(note = newNote)
+                                  val addGup = async {
+                                      viewModelGetReviews.addNote(note = newNote)
+                                  }
+                                  addGup.join()
                                   viewModelGetReviews.updateTemporalGup(newNote)
                                   content = ""
+                                  viewModelGetReviews.updateStateChangesOnListReviews(newValue = StateChangesOnListReviews.NEWCHANGES)
                               }
-                              viewModelGetReviews?.updateStateChangesOnListReviews(newValue = StateChangesOnListReviews.NEWCHANGES)
                           },
                           arrowBackTopBottom = {
                               viewModelHorizontalPager.updateStateNewGup(false)
@@ -341,9 +359,9 @@ fun MyReviewsSbSnPlCl(
                                       secondId = currentGup.secondId
 
                                   )
-                                  viewModelGetReviews?.updateNote(note = newNote, noteId =idReviewItem)
+                                  viewModelGetReviews.updateNote(note = newNote, noteId =idReviewItem)
                                   contentGup = ""
-                                  viewModelGetReviews?.updateStateChangesOnListReviews(newValue = StateChangesOnListReviews.NEWCHANGES)
+                                  viewModelGetReviews.updateStateChangesOnListReviews(newValue = StateChangesOnListReviews.NEWCHANGES)
                               }
 
                           },

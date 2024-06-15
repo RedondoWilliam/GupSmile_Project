@@ -29,7 +29,8 @@ import gupsmile.com.ui.theme.GupsMileTheme
 @SuppressLint("RememberReturnType")
 @Composable
 fun NotificationGupAdded(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    contentBottomNotification: Int
 ){
     Row(
         modifier = modifier
@@ -45,7 +46,7 @@ fun NotificationGupAdded(
         verticalAlignment = Alignment.CenterVertically
     ) {
         textCommonHomePage(
-            stringResTextEntry = R.string.notification_gup_added,
+            stringResTextEntry = contentBottomNotification,
             maxLinesResParameter = 1,
             lineHeightParameter = 14.sp,
             fontSizeStyleParameter = 14.sp,
@@ -60,6 +61,8 @@ fun NotificationGupAdded(
 @Preview(showBackground = true)
 fun NotificationGupAddedPreview(){
     GupsMileTheme {
-        NotificationGupAdded()
+        NotificationGupAdded(
+            contentBottomNotification =  R.string.notification_gup_added
+        )
     }
 }

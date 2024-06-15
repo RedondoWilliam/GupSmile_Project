@@ -48,7 +48,7 @@ fun RegisterNewUserScreenPanelControl(
 
     val viewModelTranslate: ViewModelTranslate  = viewModel()
 
-    analytics?.logScreenView(screenName = RoutesMainScreens.CreateNewAccount.route)
+    analytics.logScreenView(screenName = RoutesMainScreens.CreateNewAccount.route)
 
     var showDialog by remember {
         mutableStateOf(false)

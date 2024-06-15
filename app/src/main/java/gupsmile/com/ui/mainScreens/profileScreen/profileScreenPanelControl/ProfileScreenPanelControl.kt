@@ -117,7 +117,7 @@ fun ProfileScreenPanelControl(
                 if(user?.photoUrl != null){
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(user?.photoUrl)
+                            .data(user.photoUrl)
                             .crossfade(true)
                             .build(),
                         contentDescription = "image",

@@ -18,29 +18,40 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Density
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import gupsmile.com.R.color.color_top_bar_with_filter
 import gupsmile.com.data.temporalConfig.StateChangesOnListReviews
 import gupsmile.com.data.temporalConfig.StateGetReviews
+import gupsmile.com.data.temporalConfig.StateUpdateListGups
 import gupsmile.com.data.temporalConfig.ViewModelGetReviews
 import gupsmile.com.data.temporalConfig.ViewModelUrlsImages
+import gupsmile.com.network.isNetworkActive
 import gupsmile.com.ui.navigationApp.NavigationMainScreens
 import gupsmile.com.ui.theme.GupsMileTheme
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginAsVisitor
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginWithGoogle
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateSignInUser
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
+import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.StateNetwork
+//import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.StateNetwork
+import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.ViewModelNetwork
+import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.ViewModelStatusNetwork
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -65,11 +76,29 @@ class MainActivity : ComponentActivity() {
                     val viewModelAuthentication: ViewModelAuthentication = hiltViewModel()
                     val viewModelUrlsImages: ViewModelUrlsImages by viewModels()
                     val viewModelGetReviews: ViewModelGetReviews by viewModels()
+                    val viewModelNetwork: ViewModelNetwork by viewModels()
                     val viewModelGetReviewsUiState = viewModelGetReviews.uiState.collectAsState().value
                     val viewModelAuthenticationUiState = viewModelAuthentication.uiState.collectAsState().value
+                    val viewModelStatusNetwork : ViewModelStatusNetwork by viewModels()
+
+                    val statusNetworkUiState by viewModelStatusNetwork.networkStatusUiState.collectAsStateWithLifecycle()
+
+                    val stateNetwork = {
+                        if(viewModelNetwork.isOnline(this)){
+                            viewModelNetwork.updateStateNetwork(StateNetwork.ACTIVE)
+                        }else{
+                            viewModelNetwork.updateStateNetwork(StateNetwork.INACTIVE)
+                        }
+                    }
+
                     lifecycleScope.launch {
                         repeatOnLifecycle(Lifecycle.State.STARTED){
                            if(viewModelAuthentication.getCurrentUser() != null){
+
+                               launch {
+                                   stateNetwork()
+                               }
+
                                launch {
                                    viewModelUrlsImages.result.collect {
                                        viewModelUrlsImages.updateUrlsImages(result = it)
@@ -78,10 +107,6 @@ class MainActivity : ComponentActivity() {
                                }
                                launch {
 
-//                                   viewModelGetReviews.result()
-
-                                   viewModelGetReviews.result()
-                                   Log.d("FlowDectect", "colector activo en repeatOnLifecycle.State.STARTED ")
                                    if(viewModelAuthentication.getCurrentUser() != null){
                                        launch {
                                            if(
@@ -92,36 +117,27 @@ class MainActivity : ComponentActivity() {
                                                viewModelGetReviewsUiState.statechanges == StateChangesOnListReviews.START ||
                                                viewModelGetReviewsUiState.state == StateGetReviews.RELOADINGLIST
                                            ){
+                                               Log.d("FlowDectect", "colector activo dentro del controlador de estado")
                                                viewModelGetReviews.result()
-                                               Log.d("FlowDectect", "colector activo en repeatOnLifecycle.State.STARTED")
+                                           }
+                                           if(viewModelGetReviewsUiState.stateUpdateListGups == StateUpdateListGups.DONE ||
+                                               viewModelGetReviewsUiState.stateUpdateListGups == StateUpdateListGups.VERIFYAGAIN){
+                                               Log.d("FlowDectect", "validación de escritura de datos en el backend")
+                                               viewModelGetReviews.validateWritingInBackend()
                                            }
                                        }
                                    }
                                }
                            }
                         }
-//                        repeatOnLifecycle(Lifecycle.State.RESUMED){
-//                            if(viewModelAuthentication.getCurrentUser() != null){
-//                                launch {
-//                                   if(
-//                                       viewModelGetReviewsUiState.statechanges == StateChangesOnListReviews.NEWCHANGES ||
-//                                       viewModelAuthenticationUiState.stateLoginAsVisitor == StateLoginAsVisitor.SUCCESS ||
-//                                       viewModelAuthenticationUiState.stateLoginWithGoogle == StateLoginWithGoogle.SUCCESS ||
-//                                       viewModelAuthenticationUiState.stateSignInUser == StateSignInUser.SUCCESS ||
-//                                       viewModelGetReviewsUiState.statechanges == StateChangesOnListReviews.START
-//                                       ){
-//                                       viewModelGetReviews.result()
-//                                       Log.d("FlowDectect", "colector activo en repeatOnLifecycle.State.RESUMED ")
-//                                   }
-//                                }
-//                            }
-//                        }
                     }
                    NavigationMainScreens(
                        context = this,
                        viewModelAuthentication = viewModelAuthentication,
                        viewModelUrlsImages = viewModelUrlsImages,
-                       viewModelGetReviews = viewModelGetReviews
+                       viewModelGetReviews = viewModelGetReviews,
+                       viewModelNetwork = viewModelNetwork,
+                       viewModelStatusNetwork = viewModelStatusNetwork
                    )
                 }
             }

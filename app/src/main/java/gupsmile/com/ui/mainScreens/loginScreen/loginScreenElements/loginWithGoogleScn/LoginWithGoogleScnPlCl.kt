@@ -57,7 +57,7 @@ fun LoginWithGoogleScnPlCl(
         ){
             is AuthRes.Succes ->{
                 val credential = GoogleAuthProvider.getCredential(
-                    account?.data?.idToken, null
+                    account.data?.idToken, null
                 )
                 scope.launch {
                     viewModelAuthentication.updateStateLoginWithGoogle(newValue = StateLoginWithGoogle.LOADING)

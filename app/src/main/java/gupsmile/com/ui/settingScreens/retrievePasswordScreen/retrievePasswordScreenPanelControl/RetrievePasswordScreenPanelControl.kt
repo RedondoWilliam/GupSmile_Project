@@ -44,7 +44,7 @@ fun RetrievePasswordScreenPanelControl(
     val authenticationUiState = viewModelAuthentication.uiState.collectAsState().value
 
 
-    analytics?.logScreenView(screenName = RoutesMainScreens.RetrieveScreen.route)
+    analytics.logScreenView(screenName = RoutesMainScreens.RetrieveScreen.route)
     var showDialog by remember{ mutableStateOf(false) }
 
     val arrowBackAction = {

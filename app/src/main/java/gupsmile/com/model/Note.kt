@@ -16,5 +16,6 @@ data class Note(
     val orderList: Int? = null,
     var dateNote: Date? = null,
     var uploaded: Boolean? = null,
-    val secondId: String? = null
+    val secondId: String? = null,
+    var backendState: Boolean = false
 )

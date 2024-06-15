@@ -42,12 +42,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = VERSION_17
+        targetCompatibility = VERSION_17
     }
 
     tasks.withType(type = org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask::class) {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+        kotlinOptions.jvmTarget = VERSION_17.toString()
     }
 
 
@@ -100,12 +100,14 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    implementation("androidx.compose.foundation:foundation-layout-android:1.5.3")
-    implementation ("androidx.compose.material:material-icons-core:1.5.3")
-    implementation("androidx.navigation:navigation-runtime-ktx:2.7.4")
-    implementation("androidx.navigation:navigation-compose:2.7.4")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.compose.foundation:foundation-layout-android:1.6.5")
+    implementation ("androidx.compose.material:material-icons-core:1.6.5")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 
 //    pendientes:
 //
@@ -164,5 +166,17 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+
+
+//    Dependencias relacionadas a WorkManager:
+
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+
+    // Espresso
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    // Junit
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    // Work testing
+    androidTestImplementation("androidx.work:work-testing:2.9.0")
 }
 

@@ -169,6 +169,7 @@
     <string name="action_update_gup">Actualizar</string>
     <string name="title_bar_progress">Cargando nuevo Gup...</string>
     <string name="notification_gup_added">Se ha cargado tu Gup.</string>
+    <string name="notification_gup_added_failed">No se ha podido cargar tu Gup.</string>
 
     
     --

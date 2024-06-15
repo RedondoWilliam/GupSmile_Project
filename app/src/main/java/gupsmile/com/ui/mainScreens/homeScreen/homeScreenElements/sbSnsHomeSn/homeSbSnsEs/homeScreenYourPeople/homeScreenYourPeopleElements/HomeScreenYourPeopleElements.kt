@@ -155,7 +155,7 @@ fun fetchWelcome(){
      * obtenemos la actualización constante que posamos recibir de remote config,
      * */
     mFirebaseRemoteConfig.fetchAndActivate()
-        .addOnCompleteListener(){task ->
+        .addOnCompleteListener { task ->
             if(task.isSuccessful){
                 val updated  = task.result
                 println("Parámetros actualizados: $updated")

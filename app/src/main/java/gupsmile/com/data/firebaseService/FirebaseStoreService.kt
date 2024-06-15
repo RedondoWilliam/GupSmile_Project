@@ -1,5 +1,7 @@
 package gupsmile.com.data.firebaseService
 
+import gupsmile.com.data.firebaseManager.PendingWrittingStatus
+import gupsmile.com.data.firebaseManager.VerifyQueryAddNewGup
 import gupsmile.com.model.Note
 import kotlinx.coroutines.flow.Flow
 
@@ -10,5 +12,5 @@ interface FirebaseStoreService {
     suspend fun deleteNote(noteId: String)
     fun getNotesFlow():Flow<List<Note>>
 
-    suspend  fun updateStateGupInBackend(noteId: String):Boolean
+    suspend  fun updateStateGupInBackend(noteId: String): Flow<VerifyQueryAddNewGup>
 }

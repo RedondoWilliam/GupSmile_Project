@@ -49,8 +49,7 @@ fun ProfileSn(
 
     val columnState = rememberScrollState()
 
-    Box(
-    ) {
+    Box {
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,

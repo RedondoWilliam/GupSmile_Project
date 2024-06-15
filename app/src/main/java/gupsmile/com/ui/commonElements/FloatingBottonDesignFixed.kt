@@ -28,12 +28,15 @@ fun FloatingBottonDesignFixed(
     coordinateX: Dp = 0.dp,
     coordinateY: Dp = 0.dp,
     sizeIcon: Dp = 44.dp,
-    onclickBottomActions: () -> Unit = {}
+    onclickBottomActions: () -> Unit = {},
+    colorIcon: Color = MaterialTheme.colorScheme.onPrimary,
+    containerColor: Color = MaterialTheme.colorScheme.primary
+
 ){
     FloatingActionButton(
         onClick = { onclickBottomActions() },
         shape = CircleShape,
-        containerColor = MaterialTheme.colorScheme.primary,
+        containerColor = containerColor,
         modifier = modifier
             .offset(coordinateX, coordinateY)
             .size(46.dp)
@@ -44,7 +47,7 @@ fun FloatingBottonDesignFixed(
                 imageIcon
             ),
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onPrimary,
+            tint = colorIcon,
             modifier = modifier.size(sizeIcon)
         )
     }

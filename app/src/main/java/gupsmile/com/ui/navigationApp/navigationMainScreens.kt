@@ -36,6 +36,8 @@ import gupsmile.com.ui.settingScreens.retrievePasswordScreen.retrievePasswordScr
 import gupsmile.com.ui.subScreens.infoLocalContactSn.infoLocalContactPlCl.InfoLocalContactPlCl
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateCurrentUser
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
+import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.ViewModelNetwork
+import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.ViewModelStatusNetwork
 
 
 sealed class RoutesMainScreens(val route:String){
@@ -60,7 +62,9 @@ fun NavigationMainScreens(
     context: Context,
     viewModelAuthentication: ViewModelAuthentication,
     viewModelUrlsImages: ViewModelUrlsImages,
-    viewModelGetReviews: ViewModelGetReviews
+    viewModelGetReviews: ViewModelGetReviews,
+    viewModelNetwork: ViewModelNetwork,
+    viewModelStatusNetwork: ViewModelStatusNetwork
 ){
 
     val authManager: AuthManager = MyModuleAuthentication.providesAutheticationManagerInstance(context)
@@ -92,7 +96,9 @@ fun NavigationMainScreens(
                 analytics = analytics,
                 auth = authManager,
                 viewModelUrlImages = viewModelUrlsImages,
-                viewModelGetReviews = viewModelGetReviews
+                viewModelGetReviews = viewModelGetReviews,
+                viewModelNetwork = viewModelNetwork,
+                viewModelStatusNetwork = viewModelStatusNetwork
             )
         }
         composable(route = RoutesMainScreens.ProfileScreen.route){

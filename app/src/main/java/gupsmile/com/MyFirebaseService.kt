@@ -96,16 +96,6 @@ class MyFirebaseService: FirebaseMessagingService() {
 
     }
 
-    /**
-     * cuando se instalé la app en un nuevo dispositivo onNewToken se encargará de generar un nuevo
-     * token para el dispositivo, de tal forma que quede registrado en el proyecto de firebase,
-     * ocurre cuando se ejecuta la aplicación por primera vez. El toquen nos puede servir para
-     * envíar notificaciones específicas a un usario específica o a un grupo de usuarios específicos
-     * */
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
-    }
-
     companion object{
         const val CHANNEL_NAME = "FCM notification channel"
     }

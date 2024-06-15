@@ -68,7 +68,7 @@ fun AddNewHistorySnPlCl(
         if(it){
             Toast.makeText(context, "Foto tomada", Toast.LENGTH_SHORT).show()
             captureImageUri = uri
-            captureImageUri?.let {uri ->
+            captureImageUri.let { uri ->
                 scope.launch {
                     storage.uploadFile(file.name, uri)
                 }
