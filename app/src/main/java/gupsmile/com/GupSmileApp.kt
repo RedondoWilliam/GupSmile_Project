@@ -4,10 +4,15 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import dagger.hilt.android.HiltAndroidApp
+import gupsmile.com.data.AppContainer
+import gupsmile.com.data.DefaultAppContainer
 
 
 @HiltAndroidApp
 class GupSmileApp: Application(){
+
+
+    lateinit var container: AppContainer
 
     /**
      * establecemos una configuración para versiones de android superiores a Oreo
@@ -36,5 +41,7 @@ class GupSmileApp: Application(){
             manager.createNotificationChannel(fcmChannel)
 
         }
+
+        container = DefaultAppContainer(this)
     }
 }
