@@ -16,7 +16,8 @@ const val TAG_OUTPUT_STATUS_NETWORK = "OUTPUT"
 const val VERIFY_STATUS_NETWORK_WORK_NAME = "verify_status_network"
 class NetworkStatusWorker(ctx: Context, params:WorkerParameters): CoroutineWorker(ctx, params) {
 
-    private val connectivityManager = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val connectivityManager = ctx.getSystemService(Context.CONNECTIVITY_SERVICE)
+            as ConnectivityManager
     override suspend fun doWork(): Result {
 
         return withContext(Dispatchers.IO){
@@ -36,3 +37,5 @@ class NetworkStatusWorker(ctx: Context, params:WorkerParameters): CoroutineWorke
         }
     }
 }
+
+

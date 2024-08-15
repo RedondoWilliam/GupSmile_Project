@@ -17,9 +17,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ViewModelStatusNetwork @Inject constructor(
-    private val wmNetworkStatusRepository: WMNetworkStatusRepository
+     wmNetworkStatusRepository: WMNetworkStatusRepository
 ) : ViewModel() {
-    val networkStatusUiState: StateFlow<NetworkStatusUiState> = wmNetworkStatusRepository.outputWorkInfo
+
+
+
+    val networkStatusUiState: StateFlow<NetworkStatusUiState> =
+        wmNetworkStatusRepository.outputWorkInfo
         .map {info ->
             val outputResult = info.outputData.getString(KEY_STATUS_NETWORK).toBoolean()
             when{

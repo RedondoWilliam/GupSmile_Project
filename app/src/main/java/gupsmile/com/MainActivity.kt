@@ -40,6 +40,7 @@ import gupsmile.com.data.temporalConfig.StateGetReviews
 import gupsmile.com.data.temporalConfig.StateUpdateListGups
 import gupsmile.com.data.temporalConfig.ViewModelGetReviews
 import gupsmile.com.data.temporalConfig.ViewModelUrlsImages
+import gupsmile.com.data.testWoMa.viewModelShowMessage.ViewModelShowMessage
 import gupsmile.com.network.isNetworkActive
 import gupsmile.com.ui.navigationApp.NavigationMainScreens
 import gupsmile.com.ui.theme.GupsMileTheme
@@ -80,8 +81,7 @@ class MainActivity : ComponentActivity() {
                     val viewModelGetReviewsUiState = viewModelGetReviews.uiState.collectAsState().value
                     val viewModelAuthenticationUiState = viewModelAuthentication.uiState.collectAsState().value
                     val viewModelStatusNetwork : ViewModelStatusNetwork by viewModels()
-
-                    val statusNetworkUiState by viewModelStatusNetwork.networkStatusUiState.collectAsStateWithLifecycle()
+                    val viewModelShowMessage: ViewModelShowMessage by viewModels()
 
                     val stateNetwork = {
                         if(viewModelNetwork.isOnline(this)){
@@ -137,7 +137,8 @@ class MainActivity : ComponentActivity() {
                        viewModelUrlsImages = viewModelUrlsImages,
                        viewModelGetReviews = viewModelGetReviews,
                        viewModelNetwork = viewModelNetwork,
-                       viewModelStatusNetwork = viewModelStatusNetwork
+                       viewModelStatusNetwork = viewModelStatusNetwork,
+                       viewModelShowMessage = viewModelShowMessage
                    )
                 }
             }

@@ -36,13 +36,6 @@ class ViewModelNetwork @Inject constructor( @ApplicationContext context: Context
     val uiState: StateFlow<NetworkUiState> = _uiState
 
 
-    init {
-       if(isOnline(context)){
-           updateStateNetwork(StateNetwork.ACTIVE)
-       }else{
-           updateStateNetwork(StateNetwork.INACTIVE)
-       }
-    }
 
     fun isOnline(context: Context): Boolean {
         val connectivityManager =

@@ -171,6 +171,13 @@
     <string name="notification_gup_added">Se ha cargado tu Gup.</string>
     <string name="notification_gup_added_failed">No se ha podido cargar tu Gup.</string>
 
+
+    --temporal elementos showMessage--
+    <string name="showActiveMessage">Si hay conexión de red</string>
+    <string name="showInactiveMessage">No hay conexión de red</string>
+    <string name="showDefaultMessage">No se han ejecutado acciones</string>
+    <string name="showErrorMessage">Work Manager no funciona</string>
+
     
     --
 

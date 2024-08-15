@@ -9,6 +9,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -21,6 +22,7 @@ import gupsmile.com.data.firebaseManager.AnalitycsManager
 import gupsmile.com.data.firebaseManager.AuthManager
 import gupsmile.com.data.temporalConfig.ViewModelGetReviews
 import gupsmile.com.data.temporalConfig.ViewModelUrlsImages
+import gupsmile.com.data.testWoMa.viewModelShowMessage.ViewModelShowMessage
 import gupsmile.com.ui.mainScreens.contactsSn.ContactsSnPlCl.ContactsSnPlCl
 import gupsmile.com.ui.mainScreens.homeScreen.homeScreenPanelControl.HomeScreenPanelControl
 //import gupsmile.com.ui.mainScreens.homeScreen.homeScreenPanelControl.HomeScreenPanelControl
@@ -64,7 +66,8 @@ fun NavigationMainScreens(
     viewModelUrlsImages: ViewModelUrlsImages,
     viewModelGetReviews: ViewModelGetReviews,
     viewModelNetwork: ViewModelNetwork,
-    viewModelStatusNetwork: ViewModelStatusNetwork
+    viewModelStatusNetwork: ViewModelStatusNetwork,
+    viewModelShowMessage: ViewModelShowMessage
 ){
 
     val authManager: AuthManager = MyModuleAuthentication.providesAutheticationManagerInstance(context)
@@ -102,12 +105,16 @@ fun NavigationMainScreens(
             )
         }
         composable(route = RoutesMainScreens.ProfileScreen.route){
+
+            val viewModelShowMessagee: ViewModelShowMessage = hiltViewModel()
+
             ProfileScreenPanelControl(
                 analytics = analytics,
                 auth = authManager,
                 navController = navController,
                 viewModelAuthentication = viewModelAuthentication,
-                viewModelGetReviews = viewModelGetReviews
+                viewModelGetReviews = viewModelGetReviews,
+                viewModelShowMessage = viewModelShowMessagee
             )
         }
         composable(route = RoutesMainScreens.RetrieveScreen.route){
