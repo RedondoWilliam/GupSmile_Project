@@ -3,6 +3,7 @@ package gupsmile.com.data.testWoMa.workers
 import android.content.Context
 import android.net.ConnectivityManager
 import android.util.Log
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
@@ -22,6 +23,7 @@ import javax.inject.Inject
 private const val TAG = "ShowMessage"
 
 
+@HiltWorker()
 class ShowMessage @AssistedInject constructor(
     @Assisted ctx: Context,
     @Assisted params: WorkerParameters,

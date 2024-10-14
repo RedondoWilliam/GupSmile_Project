@@ -3,11 +3,21 @@ package gupsmile.com
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 
 @HiltAndroidApp
-class GupSmileApp: Application(){
+class GupSmileApp: Application(), Configuration.Provider{
+
+
+
+
+    @Inject
+    lateinit var workerConfiguration: Configuration
+
+
 
     /**
      * establecemos una configuración para versiones de android superiores a Oreo
@@ -36,5 +46,18 @@ class GupSmileApp: Application(){
             manager.createNotificationChannel(fcmChannel)
 
         }
+
+
     }
+
+
+
+    override val workManagerConfiguration: Configuration
+        get() = workerConfiguration
+
+
+
 }
+
+
+
