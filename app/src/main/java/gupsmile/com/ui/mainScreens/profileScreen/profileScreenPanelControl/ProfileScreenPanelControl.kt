@@ -12,11 +12,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +36,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
@@ -42,10 +48,13 @@ import gupsmile.com.data.firebaseManager.AnalitycsManager
 import gupsmile.com.data.firebaseManager.AuthManager
 import gupsmile.com.data.temporalConfig.StateChangesOnListReviews
 import gupsmile.com.data.temporalConfig.ViewModelGetReviews
+import gupsmile.com.data.testWoMa.viewModelShowMessage.StatusNetworkUiState
+import gupsmile.com.data.testWoMa.viewModelShowMessage.ViewModelShowMessage
 import gupsmile.com.ui.commonElements.DialogOptionsPersonalized
 import gupsmile.com.ui.commonElements.DropDownMenuItemPersonalized
 import gupsmile.com.ui.commonElements.FloatingBottonDesignFixed
 import gupsmile.com.ui.commonElements.LogOutDialogMenu
+import gupsmile.com.ui.commonElements.LogOutDialogMenuString
 import gupsmile.com.ui.mainScreens.profileScreen.profileScreenElements.ProfileSn
 import gupsmile.com.ui.navigationApp.RoutesMainScreens
 import gupsmile.com.ui.subScreens.infoLocalContactSn.infoLocalContactEs.InformationContactItemInfo
@@ -55,7 +64,9 @@ import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateCurren
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginAsVisitor
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginWithGoogle
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okhttp3.internal.wait
 
 @Composable
 fun ProfileScreenPanelControl(
@@ -64,8 +75,11 @@ fun ProfileScreenPanelControl(
     auth: AuthManager?,
     navController: NavHostController = rememberNavController(),
     viewModelAuthentication: ViewModelAuthentication?,
-    viewModelGetReviews: ViewModelGetReviews?
+    viewModelGetReviews: ViewModelGetReviews?,
+    viewModelShowMessage: ViewModelShowMessage
 ){
+//    val viewModelShowMessagee: ViewModelShowMessage = hiltViewModel()
+
     analytics?.logScreenView(screenName = RoutesMainScreens.ProfileScreen.route)
 
     val scope = rememberCoroutineScope()
@@ -75,9 +89,38 @@ fun ProfileScreenPanelControl(
     var expanded by remember { mutableStateOf(false) }
     var showDialog by remember{ mutableStateOf(false) }
 
-
+    var status  by remember { mutableStateOf("") }
 
     val user = auth?.getCurrentUser()
+
+    val viewModelShowMessageUiState by viewModelShowMessage.networkUiState.collectAsStateWithLifecycle()
+
+    when(viewModelShowMessageUiState) {
+
+        is StatusNetworkUiState.Loading -> {
+            Log.d("ShowMessage", "el resultado en UI es Loading: ")
+          status =   (viewModelShowMessageUiState as StatusNetworkUiState.Loading).outputResult
+        }
+
+        is StatusNetworkUiState.Default -> {
+            Log.d("ShowMessage", "el resultado en UI es Default: ")
+          status =  (viewModelShowMessageUiState as StatusNetworkUiState.Default).outputResult
+        }
+
+        is StatusNetworkUiState.Complete -> {
+            Log.d(
+                "ShowMessage",
+                "el resultado en UI es Completed: ${(viewModelShowMessageUiState as StatusNetworkUiState.Complete).outputResult}"
+            )
+           status =  (viewModelShowMessageUiState as StatusNetworkUiState.Complete).outputResult
+        }
+        is StatusNetworkUiState.noneI -> {"noneI"}
+
+    }
+
+
+    var showMessage by remember { mutableStateOf(false) }
+
 
 
     val onLogOutConfirmed: () -> Unit = {
@@ -138,7 +181,12 @@ fun ProfileScreenPanelControl(
                 }
             },
             nameUser = "William Redondo" ,
-            emailBottomAction = { /*TODO*/ },
+            emailBottomAction = {
+                scope.launch {
+                    viewModelShowMessage.showMessage()
+                    showMessage = true
+                }
+                                },
             chatBottomAction = { /*TODO*/ },
             phoneBottomAction = { /*TODO*/ },
             bottomMenuActions = {expanded = !expanded},
@@ -317,19 +365,37 @@ fun ProfileScreenPanelControl(
                     iconDialogMenu = R.drawable.warning_icon
                 )
             }
+            if(showMessage ){
+                LogOutDialogMenuString(
+                    onDismiss = {
+                                showMessage = false
+                    },
+                    onConfirmLogOut = {showMessage = false},
+                    titleAlertDialogMenu = status
+                    ,
+                    confirmBottomText = R.string.confirmBottomText,
+                    dimmissBottomText = R.string.dimmissBottomText
+                )
+            }
         }
     }
+
 }
 
-@Composable
-@Preview(showBackground = true)
-fun ProfileScreenPanelControlPreview(){
-    GupsMileTheme {
-        ProfileScreenPanelControl(
-            analytics = null,
-            auth = null,
-            viewModelAuthentication = null,
-            viewModelGetReviews = null
-        )
-    }
-}
+
+
+
+
+//@Composable
+//@Preview(showBackground = true)
+//fun ProfileScreenPanelControlPreview(){
+//    GupsMileTheme {
+//        ProfileScreenPanelControl(
+//            analytics = null,
+//            auth = null,
+//            viewModelAuthentication = null,
+//            viewModelGetReviews = null,
+//            viewModelShowMessage = null
+//        )
+//    }
+//}
