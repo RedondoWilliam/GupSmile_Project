@@ -74,3 +74,5 @@ fun BarProgressPdLightPreview(){
         BarProgressPd()
     }
 }
+
+

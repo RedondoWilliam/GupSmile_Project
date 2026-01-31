@@ -23,7 +23,7 @@ import javax.inject.Inject
 private const val TAG = "ShowMessage"
 
 
-@HiltWorker()
+@HiltWorker
 class ShowMessage @AssistedInject constructor(
     @Assisted ctx: Context,
     @Assisted params: WorkerParameters,

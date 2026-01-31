@@ -58,6 +58,7 @@ import gupsmile.com.data.temporalConfig.ViewModelGetReviews
 import gupsmile.com.data.temporalConfig.ViewModelUrlsImages
 import gupsmile.com.ui.commonElements.FloatingBottonDesignFixed
 import gupsmile.com.ui.commonElements.TopAppBarPdTwo
+import gupsmile.com.ui.commonElements.notificationNetworkState
 import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.homeNavigationUpSections.homeNavigationUpSectionPanelControl.HomeNavigationUpSectionsPanelControl
 import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.homeTopAppBar.homeTopAppBarPanelControl.HomeTopAppBarPanelControl
 import gupsmile.com.ui.mainScreens.homeScreen.homeScreenElements.sbSnsHomeSn.subscreensPanelControl.SubscreensPanelControl
@@ -78,7 +79,8 @@ fun HomeSn(
     newFloatingBottom: @Composable () -> Unit,
     viewModelUrlImages: ViewModelUrlsImages?,
     viewModelGetReviews: ViewModelGetReviews?,
-    navController: NavHostController
+    navController: NavHostController,
+    notificationStateNetwork: @Composable () -> Unit
 ){
 
     val viewModelHorizontalPager: ViewModelHorizontalPagerPage = viewModel()
@@ -104,6 +106,8 @@ fun HomeSn(
                 )
 
         ) {
+
+
             Box(
                 modifier = modifier
                     .fillMaxWidth()
@@ -113,6 +117,7 @@ fun HomeSn(
                         .fillMaxWidth()
                         .statusBarsPadding()
                 ) {
+                    notificationStateNetwork()
                     homeTopAppBar()
 //                    HomeNavigationUpSectionsPanelControl()
                 }
@@ -132,21 +137,6 @@ fun HomeSn(
 
                     )
                 }
-//                Box(
-//                    modifier = modifier
-//                        .fillMaxWidth()
-//                        .matchParentSize()
-//                        .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.4f))
-//                        .pointerInput(Unit) {
-//                            detectTapGestures(
-//                                onTap = {
-//                                    pointerAction()
-//                                }
-//                            )
-//                        }
-//
-//                )
-
             }
             Box(
                 modifier = modifier
@@ -160,6 +150,8 @@ fun HomeSn(
                     navController = navController
                 )
             }
+
+
         }
         newFloatingBottom()
         Box(
@@ -218,21 +210,6 @@ fun HomeSnPreview(){
             scroll = scrollBehavior,
             floatingBottomActions = { /*TODO*/ },
             homeTopAppBar = {
-//                DefaultAppBar(
-//                    scroll = null,
-//                    navigationHomeProfile = {},
-//                    onLogOutConfirmed = {},
-//                    expandedMenuOptions = {},
-//                    profileImage = painterResource(id = R.drawable.selfie),
-//                    profilePhoto = {
-//                        Icon(
-//                            painter = painterResource(id = R.drawable.image_add_contact),
-//                            contentDescription = "",
-//                            tint = MaterialTheme.colorScheme.primary,
-//                            modifier = Modifier.size(38.dp)
-//                        )
-//                    }
-//                )
                 TopAppBarPdTwo(
                     navigationHomeProfile = {},
                     profilePhoto = {
@@ -258,6 +235,9 @@ fun HomeSnPreview(){
             viewModelUrlImages = null,
             viewModelGetReviews = null,
             navController =  rememberNavController(),
+            notificationStateNetwork = {
+                notificationNetworkState()
+            }
         )
     }
 }

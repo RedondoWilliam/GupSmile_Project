@@ -9,6 +9,7 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import gupsmile.com.data.testWoMa.workers.ShowMessage
+import gupsmile.com.network.isNetworkActive
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +24,8 @@ import java.util.UUID
 import javax.inject.Inject
 
 class TestWomaRepository @Inject constructor(
-    private val workManager: WorkManager
+    private val workManager: WorkManager,
+    private val connectivityManager: ConnectivityManager
 ): TestWomaRepositoryIn {
 
 
@@ -57,6 +59,8 @@ class TestWomaRepository @Inject constructor(
         Log.d("ShowMessage", "dato emitido al flujo $workId")
 
     }
+
+    override suspend fun validadeStateNetowrk() = isNetworkActive(connectivityManager = connectivityManager )
 
 
 

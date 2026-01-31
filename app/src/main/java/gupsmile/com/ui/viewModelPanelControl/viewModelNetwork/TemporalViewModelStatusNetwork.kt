@@ -43,17 +43,7 @@ class TemporalViewModelStatusNetwork(
 
     fun verifyStatusNetwork() = temporalNetworkStatusRepository.listenableStatusNetwork()
 
-    companion object{
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val temporalNetworkStatusRepository =
-                    (this[APPLICATION_KEY] as GupSmileApp).container.temporalNetworkStatusRepository
-                TemporalViewModelStatusNetwork(
-                    temporalNetworkStatusRepository = temporalNetworkStatusRepository
-                )
-            }
-        }
-    }
+
 }
 
 sealed interface StatusNetworkUiState {

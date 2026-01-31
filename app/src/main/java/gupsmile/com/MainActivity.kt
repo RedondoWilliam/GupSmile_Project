@@ -7,42 +7,35 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.Density
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
-import gupsmile.com.R.color.color_top_bar_with_filter
 import gupsmile.com.data.temporalConfig.StateChangesOnListReviews
 import gupsmile.com.data.temporalConfig.StateGetReviews
 import gupsmile.com.data.temporalConfig.StateUpdateListGups
 import gupsmile.com.data.temporalConfig.ViewModelGetReviews
 import gupsmile.com.data.temporalConfig.ViewModelUrlsImages
 import gupsmile.com.data.testWoMa.viewModelShowMessage.ViewModelShowMessage
-import gupsmile.com.network.isNetworkActive
 import gupsmile.com.ui.navigationApp.NavigationMainScreens
+import gupsmile.com.ui.subScreens.ChatScreen.emojiTray.mainImeScreen
 import gupsmile.com.ui.theme.GupsMileTheme
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginAsVisitor
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginWithGoogle
@@ -52,26 +45,26 @@ import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.StateNetwork
 //import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.StateNetwork
 import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.ViewModelNetwork
 import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.ViewModelStatusNetwork
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @SuppressLint("ResourceAsColor", "CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window,false)
 
+        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         askNotificationPermission()
         tokenNew()
 
         setContent {
             GupsMileTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val viewModelAuthentication: ViewModelAuthentication = hiltViewModel()
@@ -131,6 +124,8 @@ class MainActivity : ComponentActivity() {
                            }
                         }
                     }
+
+
                    NavigationMainScreens(
                        context = this,
                        viewModelAuthentication = viewModelAuthentication,
@@ -140,6 +135,24 @@ class MainActivity : ComponentActivity() {
                        viewModelStatusNetwork = viewModelStatusNetwork,
                        viewModelShowMessage = viewModelShowMessage
                    )
+
+//                    Column(
+//                        modifier = Modifier
+//                            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.2f))
+//                            .fillMaxWidth()
+//                            .fillMaxHeight(),
+//                        horizontalAlignment = Alignment.CenterHorizontally,
+//                        verticalArrangement = Arrangement.Bottom){
+//                        EmojiTray()
+//                    }
+
+//                    ImeDetection()
+//                    EmojiTray()
+//                    proofEmojis()
+//                    GridEmojis()
+
+                  //  MyScrollableScreen()
+
                 }
             }
         }

@@ -178,11 +178,22 @@
     <string name="showDefaultMessage">No se han ejecutado acciones</string>
     <string name="showErrorMessage">Work Manager no funciona</string>
 
-    
-    --
+
+
+    --notificationNetworkStateScreen--
+    <string name="notification_network_state_message">Ups! Al parecer no estás conectado.</string>
+
+
+    --chatScreenElements--
+    <string name="user_chat">User Chat</string>
+    <string name="state_chat">State Chat, this is large message in my feed, with mi contact.!!</string>
+    <string name="message_chat">Message</string>
 
 
     --temporal
     <string name="name_user">Lucia Hernández</string>
     <string name="force_error">Forzar cierre Crashlytics</string>
+
+
+
 </resources>

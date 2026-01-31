@@ -34,7 +34,8 @@ fun textCommonHomePage(
     fontFamilyStyleParameter: FontFamily?,
     colorStyleParameter: Color,
     textOverflow: TextOverflow =  TextOverflow.Ellipsis,
-    textAlignPersonalized: TextAlign = TextAlign.Start
+    textAlignPersonalized: TextAlign = TextAlign.Start,
+    letterSpacing: TextUnit = TextUnit.Unspecified
 ){
     Text(
         modifier = modifier,
@@ -57,7 +58,8 @@ fun textCommonHomePage(
 
         ),
         overflow = textOverflow,
-        textAlign = textAlignPersonalized
+        textAlign = textAlignPersonalized,
+        letterSpacing = letterSpacing
     )
 }
 
@@ -73,7 +75,8 @@ fun textCommonHomePageString(
     fontFamilyStyleParameter: FontFamily?,
     colorStyleParameter: Color,
     textOverflow: TextOverflow =  TextOverflow.Ellipsis,
-    textAlignPersonalized: TextAlign = TextAlign.Start
+    textAlignPersonalized: TextAlign = TextAlign.Start,
+    letterSpacing: TextUnit = TextUnit.Unspecified
 ){
     Text(
         modifier = modifier,
@@ -96,6 +99,7 @@ fun textCommonHomePageString(
 
             ),
         overflow = textOverflow,
-        textAlign = textAlignPersonalized
+        textAlign = textAlignPersonalized,
+        letterSpacing = letterSpacing
     )
 }

@@ -154,7 +154,7 @@ fun AddNewGupSn(
                     bottomActionsItem = {
                         doneBottomAction()
                                         },
-                    iconItem = R.drawable.send_icon,
+                    iconItem = R.drawable.sent_icon,
                     containerColorIcon = MaterialTheme.colorScheme.primary,
                     colorIcon = MaterialTheme.colorScheme.onPrimary,
                     sizeIcon = 30.dp,

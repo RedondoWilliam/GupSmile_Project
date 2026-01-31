@@ -35,6 +35,7 @@ import gupsmile.com.ui.settingScreens.addContactLocalSn.addLocalContactPlCl.AddC
 import gupsmile.com.ui.settingScreens.addNewResourceSn.AddNewHistorySnPlCl
 import gupsmile.com.ui.settingScreens.registerNewUserScreen.registerNewUserScreenPanelControl.RegisterNewUserScreenPanelControl
 import gupsmile.com.ui.settingScreens.retrievePasswordScreen.retrievePasswordScreenPanelControl.RetrievePasswordScreenPanelControl
+import gupsmile.com.ui.subScreens.ChatScreen.ChatScreenPanelControl
 import gupsmile.com.ui.subScreens.infoLocalContactSn.infoLocalContactPlCl.InfoLocalContactPlCl
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateCurrentUser
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.ViewModelAuthentication
@@ -54,6 +55,7 @@ sealed class RoutesMainScreens(val route:String){
 
     object InfoLocalContactPlCl: RoutesMainScreens("infoLocalContactPlCl")
     object AddNewHistorySnPlCl: RoutesMainScreens("addNewHistorySnPlCl")
+    object ChatScreen: RoutesMainScreens("chatScreen")
 }
 
 
@@ -94,6 +96,9 @@ fun NavigationMainScreens(
             )
         }
         composable(route = RoutesMainScreens.HomeScreen.route){
+
+            val viewModelShowMessagee: ViewModelShowMessage = hiltViewModel()
+
             HomeScreenPanelControl(
                 navController = navController,
                 analytics = analytics,
@@ -101,7 +106,8 @@ fun NavigationMainScreens(
                 viewModelUrlImages = viewModelUrlsImages,
                 viewModelGetReviews = viewModelGetReviews,
                 viewModelNetwork = viewModelNetwork,
-                viewModelStatusNetwork = viewModelStatusNetwork
+                viewModelStatusNetwork = viewModelStatusNetwork,
+                viewModelShowMessage = viewModelShowMessagee
             )
         }
         composable(route = RoutesMainScreens.ProfileScreen.route){
@@ -173,6 +179,12 @@ fun NavigationMainScreens(
             AddNewHistorySnPlCl(
                 navController = navController
             )
+        }
+
+        composable(
+            route = RoutesMainScreens.ChatScreen.route
+        ){
+            ChatScreenPanelControl()
         }
 
 

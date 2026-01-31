@@ -12,11 +12,15 @@ import gupsmile.com.data.testWoMa.TestWomaRepositoryIn
 import gupsmile.com.ui.viewModelPanelControl.viewModelAuthentication.StateLoginWithGoogle
 import gupsmile.com.ui.viewModelPanelControl.viewModelNetwork.NetworkStatusUiState
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -64,7 +68,34 @@ class ViewModelShowMessage @Inject constructor(
                 initialValue = StatusNetworkUiState.noneI
             )
 
+    private val stateNetwork = MutableSharedFlow<StatusNetwork>()
 
+    val stateNetworkHomeScreen =
+        stateNetwork.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = StatusNetwork.Default
+        )
+
+
+
+    private suspend fun validateStateNetwork(){
+        while (true){
+            if(testWomaRepository.validadeStateNetowrk()){
+                stateNetwork.emit(StatusNetwork.Active)
+            }else{
+                stateNetwork.emit(StatusNetwork.Inactive)
+            }
+            delay(3000)
+        }
+    }
+
+
+    init {
+        viewModelScope.launch {
+            validateStateNetwork()
+        }
+    }
 
     suspend fun showMessage() =  testWomaRepository.showMessage()
 
@@ -82,7 +113,14 @@ class ViewModelShowMessage @Inject constructor(
     data class Complete(val outputResult: String): StatusNetworkUiState
 
     data object noneI: StatusNetworkUiState
-
-
-
 }
+
+sealed interface StatusNetwork{
+    data object Default: StatusNetwork
+    data object Active: StatusNetwork
+
+    data object Inactive: StatusNetwork
+}
+
+
+

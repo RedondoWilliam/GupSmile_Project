@@ -32,9 +32,10 @@ class AnalitycsManager @Inject constructor(
 
 
     /**
-     * nececitamos una forma de evitar el reconteo por recomposiciones de la pantalla,
-     * lo que va hacer trackScreen es enviar un evento a firebase de que hemos visto una screen,
-     * track screen solo se va a componer una vez*/
+     *We need a way to avoid recounting by screen recompositions,
+     * what TrackScreen is going to do is send an event to Firebase that we have seen a screen,
+     * TrackScreen is only going to be composed once
+     * */
     @Composable
     override fun logScreenView(screenName: String){
         DisposableEffect(Unit){
